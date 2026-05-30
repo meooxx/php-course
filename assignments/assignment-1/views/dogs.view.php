@@ -40,11 +40,4 @@
 
 			</section>
 		</section>
-		<!-- <section>
-			<h2>Bay Retriever</h2>
-			<section class="dog-list">
-			
-			</section>
-		</section> -->
-
 	</main>
