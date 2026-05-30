@@ -1,7 +1,7 @@
 <?php
 require_once "config.php";
 
-class Handler
+class DogModel
 {
 
 	private $path = "";
