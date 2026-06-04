@@ -1,10 +1,10 @@
 <?php
 // db_config.php
 class BookDatabase {
-    private $host = "localhost";
-    private $db   = "bookstore_db";
-    private $user = "root";
-    private $pass = ""; 
+    private $host = "172.31.22.43";
+    private $db   = "Shaoqiu200658199";
+    private $user = "Shaoqiu200658199";
+    private $pass = "XdGti7iEA8"; 
     private $pdoInstance = null;
 
     public function getConnection() {
