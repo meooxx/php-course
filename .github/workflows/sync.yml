@@ -1,0 +1,64 @@
+name: sync to ftp server
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+
+jobs:
+  connect-open-vpn:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6    
+    - name: Install OpenVPN
+      run: |
+        sudo apt update
+        sudo apt install -y openvpn openvpn-systemd-resolved
+    - name: output config file
+      if: ${{ !github.event.act }}
+      run: |
+        echo "${{ secrets.OPENVPN_CONFIG }}" | base64 --decode > .github/client.ovpn
+    - name: ls
+      run: ls -lh .github/client.ovpn
+    - name: Connect to VPN
+      run: |
+        sudo openvpn --config .github/client.ovpn --dev tun --daemon --log openvpn.log --writepid openvpn.pid
+        sleep 2 
+        sudo ifconfig tun0 # 验证网卡是否成功创建
+    - name: log
+      run: sudo cat openvpn.log
+    - name: test connection
+      run: |
+        curl -s --max-time 2 172.31.22.43:21 > /dev/null && status=0 || status=$?
+
+        if [ $status -eq 1 ]; then
+            echo "VPN work"
+            exit 0
+        else
+            echo "failed: $status"
+            exit 1
+        fi
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: public_html/
+        protocol: ftps
+        exclude: |
+          .github/**
+          .vscode/**
+          node_modules/**
+          .env
+          .gitignore
+          *.ovpn
+          *.log
+          *.pid
+          .DS_Store
+          .git/**
+          
