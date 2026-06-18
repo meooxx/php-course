@@ -61,4 +61,4 @@ jobs:
           *.pid
           .DS_Store
           .git/**
-          
+          *.md
