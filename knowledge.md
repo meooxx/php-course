@@ -97,7 +97,7 @@ make api
 
 ```
 $curl = curl_init()
-curl_setopt_arrary($curl, [
+curl_setopt_array($curl, [
 	CURLOPT_URL=> url,
 	CURLOPT_RETURNTRANSFER => True
 ])
