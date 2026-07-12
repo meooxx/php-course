@@ -1,0 +1,22 @@
+<!-- Decorative SVG: stylized golden monkey mascot mark -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="monkeyTitle">
+  <title id="monkeyTitle">Jin Si Hou brand mascot</title>
+  <circle cx="100" cy="100" r="96" fill="#C41E3A"/>
+  <circle cx="100" cy="100" r="82" fill="#FFF5F7"/>
+  <!-- Face -->
+  <ellipse cx="100" cy="108" rx="48" ry="42" fill="#F4C27A"/>
+  <ellipse cx="68" cy="78" rx="22" ry="26" fill="#F4C27A"/>
+  <ellipse cx="132" cy="78" rx="22" ry="26" fill="#F4C27A"/>
+  <ellipse cx="68" cy="78" rx="12" ry="14" fill="#E8A85C"/>
+  <ellipse cx="132" cy="78" rx="12" ry="14" fill="#E8A85C"/>
+  <!-- Eyes -->
+  <circle cx="82" cy="100" r="8" fill="#2A1810"/>
+  <circle cx="118" cy="100" r="8" fill="#2A1810"/>
+  <circle cx="84" cy="97" r="2.5" fill="#fff"/>
+  <circle cx="120" cy="97" r="2.5" fill="#fff"/>
+  <!-- Nose & smile -->
+  <ellipse cx="100" cy="118" rx="10" ry="7" fill="#C41E3A"/>
+  <path d="M78 128 Q100 148 122 128" fill="none" stroke="#8B1528" stroke-width="4" stroke-linecap="round"/>
+  <!-- Curled tail accent -->
+  <path d="M150 150 Q178 130 168 108 Q158 90 176 86" fill="none" stroke="#C9A227" stroke-width="8" stroke-linecap="round"/>
+</svg>

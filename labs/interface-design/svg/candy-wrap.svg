@@ -1,0 +1,18 @@
+<!-- Decorative SVG: wrapped candy icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" role="img" aria-labelledby="candyTitle">
+  <title id="candyTitle">Wrapped candy icon</title>
+  <defs>
+    <linearGradient id="wrap" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B8DEF"/>
+      <stop offset="50%" stop-color="#7EC8F5"/>
+      <stop offset="100%" stop-color="#5B8DEF"/>
+    </linearGradient>
+  </defs>
+  <!-- Left twist -->
+  <path fill="#C9A227" d="M8 50 L28 28 L28 72 Z"/>
+  <!-- Right twist -->
+  <path fill="#C9A227" d="M152 50 L132 28 L132 72 Z"/>
+  <!-- Wrapper body -->
+  <rect x="28" y="28" width="104" height="44" rx="8" fill="url(#wrap)"/>
+  <text x="80" y="56" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#fff">Jin Si Hou</text>
+</svg>
