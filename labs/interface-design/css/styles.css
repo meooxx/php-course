@@ -1,12 +1,8 @@
-/* ---------- CSS Custom Properties ---------- */
 :root {
 	--brand-red: #c41e3a;
 	--brand-red-dark: #8b1528;
-	--blush: #fff0f4;
-	--blush-deep: #ffd6e0;
 	--ink: #2a1810;
 	--ink-soft: #5c4036;
-	--gold: #c9a227;
 	--milk: #fffaf7;
 	--white: #ffffff;
 	--shadow: 0 12px 40px rgba(139, 21, 40, 0.12);
@@ -17,7 +13,6 @@
 	--header-h: 4.5rem;
 }
 
-/* ---------- Reset & base ---------- */
 *,
 *::before,
 *::after {
@@ -53,8 +48,7 @@ a:focus-visible {
 }
 
 h1,
-h2,
-h3 {
+h2 {
 	font-family: var(--font-display);
 	font-weight: 400;
 	line-height: 1.25;
@@ -71,7 +65,6 @@ ul {
 	list-style: none;
 }
 
-/* Accessibility: skip link */
 .skip-link {
 	position: absolute;
 	left: -999px;
@@ -87,12 +80,10 @@ ul {
 	top: 1rem;
 }
 
-/*  Buttons  */
 .btn {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	gap: 0.4rem;
 	padding: 0.85rem 1.5rem;
 	border-radius: 999px;
 	border: 2px solid transparent;
@@ -126,19 +117,6 @@ ul {
 	color: var(--white);
 }
 
-.btn-ghost {
-	background: transparent;
-	color: var(--white);
-	border-color: rgba(255, 255, 255, 0.75);
-}
-
-.btn-ghost:hover,
-.btn-ghost:focus-visible {
-	background: rgba(255, 255, 255, 0.15);
-	color: var(--white);
-}
-
-/* ---------- Header ---------- */
 .site-header {
 	position: sticky;
 	top: 0;
@@ -177,7 +155,6 @@ ul {
 	width: auto;
 	height: 42px;
 	object-fit: contain;
-	/* Logo source has dark background — frame it cleanly */
 	background: #111;
 	border-radius: 0.4rem;
 	padding: 0.15rem 0.35rem;
@@ -222,16 +199,11 @@ ul {
 	object-position: center;
 }
 
-/* Soft gradient overlay so brand text stays readable */
 .hero-media::after {
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(
-		180deg,
-		transparent 55%,
-		rgba(42, 24, 16, 0.45) 100%
-	);
+	background: rgba(42, 24, 16, 0.35);
 }
 
 .hero-copy {
@@ -278,11 +250,9 @@ ul {
 	gap: 0.75rem;
 }
 
-/* Decorative SVG motion accents */
 .hero-deco {
 	position: absolute;
 	z-index: 2;
-	/* Decorative only; keep out of tab order via aria-hidden in HTML */
 	filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
 	animation: floaty 4.5s ease-in-out infinite;
 }
@@ -291,13 +261,6 @@ ul {
 	top: 18%;
 	right: 12%;
 	width: 56px;
-}
-
-.hero-deco-candy {
-	bottom: 22%;
-	right: 8%;
-	width: 90px;
-	animation-delay: 1.2s;
 }
 
 @keyframes floaty {
@@ -310,7 +273,6 @@ ul {
 	}
 }
 
-/*  Shared section layout  */
 .section {
 	padding: 4rem 1.25rem;
 }
@@ -325,10 +287,6 @@ ul {
 	margin-bottom: 2.5rem;
 }
 
-.section-header-left {
-	text-align: left;
-}
-
 .section-header h2 {
 	font-size: clamp(1.8rem, 4vw, 2.6rem);
 	color: var(--brand-red-dark);
@@ -341,110 +299,11 @@ ul {
 	margin-right: auto;
 }
 
-.section-header-left p {
-	margin-left: 0;
-}
-
-.section-icon {
-	margin: 0 auto 0.75rem;
-}
-
-.eyebrow {
-	font-size: 0.8rem;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
-	color: var(--gold);
-	margin-bottom: 0.35rem;
-}
-
-/* ---------- Product feature ---------- */
-.product {
-	background: var(--blush);
-}
-
-.product-feature {
-	display: grid;
-	gap: 2rem;
-	align-items: center;
-	margin-bottom: 3rem;
-}
-
-.product-feature-media {
-	margin: 0;
-	border-radius: var(--radius);
-	overflow: hidden;
-	box-shadow: var(--shadow);
-	background: var(--white);
-}
-
-.product-feature-media img {
-	width: 100%;
-}
-
-.product-feature-media figcaption {
-	padding: 0.75rem 1rem;
-	font-size: 0.9rem;
-	color: var(--ink-soft);
-}
-
-.product-feature-body h3 {
-	font-size: 1.75rem;
-	color: var(--brand-red-dark);
-}
-
-.feature-list {
-	display: grid;
-	gap: 0.85rem;
-	margin: 1.5rem 0;
-}
-
-.feature-list li {
-	display: grid;
-	grid-template-columns: 5.5rem 1fr;
-	gap: 0.75rem;
-	padding: 0.85rem 1rem;
-	background: var(--white);
-	border-radius: 0.75rem;
-	border-left: 4px solid var(--brand-red);
-}
-
-.feature-list strong {
-	color: var(--brand-red);
-}
-
 .source-note {
 	font-size: 0.88rem;
 	color: var(--ink-soft);
 }
 
-/* Reason cards — interaction containers for scanning benefits */
-.reason-grid {
-	display: grid;
-	gap: 1.25rem;
-}
-
-.reason-card {
-	background: var(--white);
-	border-radius: var(--radius);
-	padding: 1.5rem;
-	box-shadow: var(--shadow);
-	transition: transform 0.25s ease;
-}
-
-.reason-card:hover {
-	transform: translateY(-4px);
-}
-
-.reason-card img {
-	margin-bottom: 0.75rem;
-}
-
-.reason-card h3 {
-	font-size: 1.35rem;
-	color: var(--brand-red-dark);
-}
-
-/* ---------- Gallery ---------- */
 .gallery-grid {
 	display: grid;
 	gap: 1.25rem;
@@ -464,7 +323,6 @@ ul {
 	object-fit: cover;
 }
 
-/* Tall banner image gets a different crop treatment */
 .gallery-grid figure:nth-child(3) img {
 	aspect-ratio: 3 / 4;
 	object-position: top;
@@ -483,116 +341,25 @@ ul {
 	color: var(--ink-soft);
 }
 
-/*  Brand story  */
-.story-layout {
-	display: grid;
-	gap: 2rem;
-}
-
-.story-copy h3 {
-	font-size: 1.5rem;
-	color: var(--brand-red-dark);
-}
-
-.story-aside {
-	background: var(--brand-red-dark);
-	color: var(--white);
-	border-radius: var(--radius);
-	padding: 1.75rem;
-}
-
-.story-aside h3 {
-	color: #ffe7ec;
-}
-
-.category-list {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	margin: 1rem 0 1.5rem;
-}
-
-.category-list li {
-	padding: 0.35rem 0.75rem;
-	border: 1px solid rgba(255, 255, 255, 0.35);
-	border-radius: 999px;
-	font-size: 0.85rem;
-}
-
-/* Related products  */
-.related {
-	background: var(--blush);
-}
-
-.related-grid {
-	display: grid;
-	gap: 1.25rem;
-}
-
-.related-grid article {
-	background: var(--white);
-	border-radius: var(--radius);
-	overflow: hidden;
-	box-shadow: var(--shadow);
-	transition: transform 0.25s ease;
-}
-
-.related-grid article:hover {
-	transform: translateY(-4px);
-}
-
-.related-grid img {
-	width: 100%;
-	aspect-ratio: 1 / 1;
-	object-fit: cover;
-}
-
-.related-grid h3,
-.related-grid p {
-	padding-left: 1rem;
-	padding-right: 1rem;
-}
-
-.related-grid h3 {
-	margin-top: 1rem;
-	font-size: 1.2rem;
-	color: var(--brand-red-dark);
-}
-
-.related-grid p {
-	padding-bottom: 1.25rem;
-	font-size: 0.92rem;
-	color: var(--ink-soft);
-}
-
-/* ---------- Footer ---------- */
 .site-footer {
-	background: linear-gradient(160deg, #3a121c 0%, #1f0d12 55%, #2a1810 100%);
+	background: #2a1810;
 	color: rgba(255, 255, 255, 0.92);
 }
 
 .footer-bottom {
-	border-top: 1px solid rgba(255, 255, 255, 0.12);
 	padding: 1.25rem;
 	text-align: center;
 	font-size: 0.82rem;
 	opacity: 0.7;
 }
 
-/* 
-   Responsive breakpoints — major viewports
- */
+.footer-bottom p {
+	margin: 0.25rem 0;
+}
+
 @media (min-width: 768px) {
 	.hero-copy {
 		padding: 4.5rem 3rem 4rem;
-	}
-
-	.product-feature {
-		grid-template-columns: 1fr 1fr;
-	}
-
-	.reason-grid {
-		grid-template-columns: repeat(3, 1fr);
 	}
 
 	.gallery-grid {
@@ -600,7 +367,6 @@ ul {
 	}
 }
 
-/* Desktop */
 @media (min-width: 1024px) {
 	.header-inner {
 		padding-left: 1.5rem;
@@ -618,7 +384,7 @@ ul {
 
 	.hero-copy {
 		align-self: center;
-		background: linear-gradient(120deg, var(--brand-red-dark), #5a1524);
+		background: var(--brand-red-dark);
 		min-height: calc(100vh - var(--header-h));
 		display: flex;
 		flex-direction: column;
@@ -632,11 +398,6 @@ ul {
 		top: 14%;
 	}
 
-	.hero-deco-candy {
-		right: 8%;
-		bottom: 18%;
-	}
-
 	.gallery-grid {
 		grid-template-columns: repeat(3, 1fr);
 	}
@@ -644,21 +405,8 @@ ul {
 	.gallery-grid figure:nth-child(3) img {
 		aspect-ratio: 1 / 1;
 	}
-
-	.related-grid {
-		grid-template-columns: repeat(4, 1fr);
-	}
-
-	.footer-inner {
-		grid-template-columns: 0.9fr 1.1fr 1.1fr;
-	}
-
-	.footer-form-wrap {
-		grid-column: auto;
-	}
 }
 
-/* Small phones */
 @media (max-width: 480px) {
 	.primary-nav ul {
 		gap: 0.25rem 0.65rem;
@@ -672,12 +420,7 @@ ul {
 		height: 34px;
 	}
 
-	.feature-list li {
-		grid-template-columns: 1fr;
-	}
-
 	.hero-deco {
-		display: none; /* reduce clutter on very small screens */
+		display: none;
 	}
 }
-
