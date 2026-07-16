@@ -5,7 +5,7 @@ class Database {
 	private $host =  "172.31.22.43";
 	private $password = 'XdGti7iEA8';
 	private $database = 'Shaoqiu200658199';
-	private $connection;
+	protected $connection;
 	
 	/**
 	 * constructor method
