@@ -1,6 +1,6 @@
 <?php 
-    required_once 'inc/Database.php';
-		required_once 'inc/UserCRUD.php';	
+    require_once 'inc/Database.php';
+		require_once 'inc/UserCRUD.php';	
 		include_once "templates/header.php";
 		if($_SERVER['REQUEST_METHOD'] !== 'POST') {
 			header("Location: register.php");

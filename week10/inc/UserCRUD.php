@@ -7,7 +7,7 @@
 			$this->conn = $db->connect();
 		}
 
-		public function create_user(string $username, string $email, string $hashed_password: bool) {
+		public function create_user(string $username, string $email, string $hashed_password): bool {
 			$query = "INSERT INTO {$this->table} (username, email, password) VALUES (:username, :email, :password)";
 			$stmt = $this->conn->prepare($query);
 			$stmt->bindParam(':username', $username);
