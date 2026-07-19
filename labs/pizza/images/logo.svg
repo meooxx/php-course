@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Doomino's pizza mark">
+  <!-- Original student mark for Doomino's school project. Not a Domino's logo. -->
+  <!-- Top: two red dots · Bottom: one blue dot -->
+  <defs>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <g transform="translate(60 60) rotate(-20) translate(-60 -60)" filter="url(#soft)">
+    <rect x="18" y="12" width="84" height="96" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="3"/>
+    <line x1="18" y1="60" x2="102" y2="60" stroke="#1a1a1a" stroke-width="3"/>
+    <!-- Top half: red + two dots -->
+    <rect x="18" y="12" width="84" height="48" rx="10" fill="#E31837"/>
+    <rect x="18" y="22" width="84" height="38" fill="#E31837"/>
+    <circle cx="42" cy="36" r="9" fill="#ffffff"/>
+    <circle cx="78" cy="36" r="9" fill="#ffffff"/>
+    <!-- Bottom half: blue + one dot -->
+    <rect x="18" y="60" width="84" height="48" rx="10" fill="#006491"/>
+    <rect x="18" y="60" width="84" height="38" fill="#006491"/>
+    <circle cx="60" cy="84" r="9" fill="#ffffff"/>
+  </g>
+</svg>

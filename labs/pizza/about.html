@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>About | Doomino's</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&amp;family=Oswald:wght@600;700&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="css/tailwind-config.js"></script>
+		<link rel="stylesheet" href="css/styles.css" />
+	</head>
+	<body class="bg-cream font-body text-ink antialiased">
+		<a
+			class="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:bg-dominos-red focus:px-4 focus:py-2 focus:text-white"
+			href="#main"
+			>Skip to main content</a
+		>
+
+		<header class="bg-dominos-blue text-white">
+			<div class="mx-auto flex min-h-14 max-w-[980px] flex-wrap items-center gap-3 px-4 py-1.5">
+				<a class="flex items-center gap-2 text-white no-underline hover:text-white" href="index.html">
+					<img class="h-9 w-9" src="images/logo.svg" width="36" height="36" alt="" />
+					<span class="font-display text-xl uppercase tracking-wider">Doomino's</span>
+				</a>
+				<nav class="flex-1" aria-label="Primary">
+					<ul class="flex flex-wrap gap-0.5">
+						<li>
+							<a
+								class="inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
+								href="index.html"
+								>Home</a
+							>
+						</li>
+						<li>
+							<a
+								class="inline-block bg-black/20 px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline"
+								href="about.html"
+								aria-current="page"
+								>About</a
+							>
+						</li>
+						<li>
+							<a
+								class="inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
+								href="shop.html"
+								>Menu</a
+							>
+						</li>
+						<li>
+							<a
+								class="inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
+								href="contact.html"
+								>Contact</a
+							>
+						</li>
+					</ul>
+				</nav>
+				<a
+					class="rounded-full bg-white px-4 py-1.5 font-display text-sm uppercase tracking-wider text-dominos-blue no-underline hover:bg-sky-50"
+					href="shop.html"
+					>Order Online</a
+				>
+			</div>
+		</header>
+
+		<main id="main" class="mx-auto max-w-[980px] px-4 pb-10">
+			<div class="pb-4 pt-7">
+				<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-blue md:text-4xl">
+					About This Lab
+				</h1>
+			</div>
+
+			<section class="grid items-start gap-6 pb-6 md:grid-cols-[1.1fr_0.9fr]">
+				<div class="border border-line bg-white p-5">
+					<h2 class="font-display text-2xl uppercase tracking-wide text-dominos-blue">
+						A fictional school pizza brand
+					</h2>
+					<p class="mb-4">
+						<strong>Doomino's</strong> is an original name for this coursework site. The layout
+						practices common pizza-ordering patterns (blue header, cream background, delivery /
+						carryout choice, menu cards) and is built with <strong>Tailwind CSS</strong>.
+					</p>
+					<p class="mb-5">
+						This is not a real restaurant and is not affiliated with Domino's or any other pizza
+						chain. The logo and brand name are student-made to avoid trademark use.
+					</p>
+					<a
+						class="inline-block bg-accent-blue px-4 py-1.5 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
+						href="shop.html"
+						>Browse Menu</a
+					>
+				</div>
+				<figure class="border border-line">
+					<img
+						class="w-full"
+						src="images/about-store.jpg"
+						width="1000"
+						height="750"
+						alt="Restaurant interior representing a pizza storefront"
+					/>
+				</figure>
+			</section>
+		</main>
+
+		<footer class="mt-4 bg-dominos-blue py-6 text-sm text-white/90">
+			<div class="mx-auto max-w-[980px] px-4">
+				<p>
+					<strong>Doomino's</strong> is a fictional school project brand. Not affiliated with
+					Domino's or any real pizza chain.
+				</p>
+			</div>
+		</footer>
+	</body>
+</html>

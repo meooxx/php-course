@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Pepperoni | Doomino's</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&amp;family=Oswald:wght@600;700&amp;display=swap" rel="stylesheet" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="../css/tailwind-config.js"></script>
+		<link rel="stylesheet" href="../css/styles.css" />
+	</head>
+	<body class="bg-cream font-body text-ink antialiased">
+		<a class="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:bg-dominos-red focus:px-4 focus:py-2 focus:text-white" href="#main">Skip to main content</a>
+		<header class="bg-dominos-blue text-white">
+			<div class="mx-auto flex min-h-14 max-w-[980px] flex-wrap items-center gap-3 px-4 py-1.5">
+				<a class="flex items-center gap-2 text-white no-underline hover:text-white" href="../index.html">
+					<img class="h-9 w-9" src="../images/logo.svg" width="36" height="36" alt="" />
+					<span class="font-display text-xl uppercase tracking-wider">Doomino's</span>
+				</a>
+				<nav class="flex-1" aria-label="Primary">
+					<ul class="flex flex-wrap gap-0.5">
+						<li><a class="inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20" href="../index.html">Home</a></li>
+						<li><a class="inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20" href="../about.html">About</a></li>
+						<li><a class="inline-block bg-black/20 px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline" href="../shop.html" aria-current="page">Menu</a></li>
+						<li><a class="inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20" href="../contact.html">Contact</a></li>
+					</ul>
+				</nav>
+				<a class="rounded-full bg-white px-4 py-1.5 font-display text-sm uppercase tracking-wider text-dominos-blue no-underline hover:bg-sky-50" href="#order">Order</a>
+			</div>
+		</header>
+		<main id="main" class="mx-auto max-w-[980px] px-4 pb-10">
+			<div class="pb-4 pt-7">
+				<nav class="mb-2 text-sm text-muted"><a class="text-dominos-blue no-underline hover:underline" href="../shop.html">Menu</a> / Pepperoni</nav>
+				<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-blue md:text-4xl">Pepperoni</h1>
+			</div>
+			<div class="mb-8 grid gap-6 md:grid-cols-2">
+				<figure class="border border-line bg-white">
+					<img class="aspect-square w-full object-cover" src="../images/pizza-pepperoni.jpg" width="800" height="800" alt="Pepperoni pizza" />
+				</figure>
+				<div class="border border-line bg-white p-5" id="order">
+					<span class="mb-2 inline-block bg-dominos-red px-2 py-0.5 font-display text-xs uppercase tracking-wider text-white">Popular</span>
+					<p class="font-display text-2xl text-dominos-blue">$12.99</p>
+					<p class="mb-4">Loads of pepperoni with mozzarella on hand-tossed crust.</p>
+					<form action="#" method="get">
+						<fieldset class="mb-4 border-0 p-0">
+							<legend class="mb-2 font-display uppercase tracking-wider text-dominos-blue">Size</legend>
+							<div class="flex flex-wrap gap-2">
+								<label class="option-chip cursor-pointer border-2 border-line bg-white px-3 py-1.5 text-sm font-bold"><input type="radio" name="size" value="s" checked /> <span>Small</span></label>
+								<label class="option-chip cursor-pointer border-2 border-line bg-white px-3 py-1.5 text-sm font-bold"><input type="radio" name="size" value="m" /> <span>Medium</span></label>
+								<label class="option-chip cursor-pointer border-2 border-line bg-white px-3 py-1.5 text-sm font-bold"><input type="radio" name="size" value="l" /> <span>Large</span></label>
+							</div>
+						</fieldset>
+						<fieldset class="mb-4 border-0 p-0">
+							<legend class="mb-2 font-display uppercase tracking-wider text-dominos-blue">Crust</legend>
+							<div class="flex flex-wrap gap-2">
+								<label class="option-chip cursor-pointer border-2 border-line bg-white px-3 py-1.5 text-sm font-bold"><input type="radio" name="crust" value="ht" checked /> <span>Hand Tossed</span></label>
+								<label class="option-chip cursor-pointer border-2 border-line bg-white px-3 py-1.5 text-sm font-bold"><input type="radio" name="crust" value="pan" /> <span>Handmade Pan</span></label>
+							</div>
+						</fieldset>
+						<button class="w-full bg-dominos-red px-4 py-2 font-display text-sm uppercase tracking-wider text-white hover:bg-red-700" type="submit">Add to Order</button>
+					</form>
+				</div>
+			</div>
+			<section class="pb-6">
+				<h2 class="mb-4 font-display text-2xl uppercase tracking-wide text-dominos-blue">You May Also Like</h2>
+				<div class="grid gap-4 md:grid-cols-2">
+					<article class="flex flex-col border border-line bg-white">
+						<a class="aspect-square overflow-hidden bg-neutral-200" href="garden-veggie.html">
+							<img class="h-full w-full object-cover" src="../images/pizza-veggie.jpg" width="800" height="800" alt="Garden Veggie" />
+						</a>
+						<div class="flex flex-1 flex-col gap-1.5 p-3.5">
+							<h3 class="font-display text-lg uppercase tracking-wide text-dominos-blue">
+								<a class="text-inherit no-underline hover:text-dominos-red" href="garden-veggie.html">Garden Veggie</a>
+							</h3>
+							<div class="mt-2 flex items-center justify-between gap-2">
+								<span class="font-display text-xl text-dominos-blue">$14.99</span>
+								<a class="bg-dominos-red px-3 py-1.5 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-red-700" href="garden-veggie.html">View</a>
+							</div>
+						</div>
+					</article>
+					<article class="flex flex-col border border-line bg-white">
+						<a class="aspect-square overflow-hidden bg-neutral-200" href="meat-feast.html">
+							<img class="h-full w-full object-cover" src="../images/pizza-meatzza.jpg" width="800" height="800" alt="Meat Feast" />
+						</a>
+						<div class="flex flex-1 flex-col gap-1.5 p-3.5">
+							<h3 class="font-display text-lg uppercase tracking-wide text-dominos-blue">
+								<a class="text-inherit no-underline hover:text-dominos-red" href="meat-feast.html">Meat Feast</a>
+							</h3>
+							<div class="mt-2 flex items-center justify-between gap-2">
+								<span class="font-display text-xl text-dominos-blue">$15.99</span>
+								<a class="bg-dominos-red px-3 py-1.5 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-red-700" href="meat-feast.html">View</a>
+							</div>
+						</div>
+					</article>
+				</div>
+			</section>
+		</main>
+		<footer class="mt-4 bg-dominos-blue py-6 text-sm text-white/90">
+			<div class="mx-auto max-w-[980px] px-4">
+				<p>
+					<strong>Doomino's</strong> is a fictional school project brand. Not affiliated with
+					Domino's or any real pizza chain.
+				</p>
+			</div>
+		</footer>
+	</body>
+</html>
