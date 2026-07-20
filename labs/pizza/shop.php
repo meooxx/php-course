@@ -4,13 +4,15 @@
 <?php
 
 $db = new Database();
-$conn = $db->connect();
-$productModel = new Product($conn);
+
 $productsList = [];
 try {
+	$conn = $db->connect();
+	$productModel = new Product($conn);
 	$productsList = $productModel->getProducts();
 } catch (Exception $e) {
-	echo "Error: " . $e->getMessage();
+	header("Location: status.php?success=0&message={$e->getMessage()}");
+	exit;
 }
 
 ?>

@@ -15,9 +15,13 @@ class Database
 			return $this->conn;
 		}
 		$dsn = "mysql:host={$this->host};dbname={$this->database};charset=utf8mb4";
-		$this->conn = new PDO($dsn, $this->username, $this->password);
-		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+		try {
+			$this->conn = new PDO($dsn, $this->username, $this->password);
+			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+		} catch (PDOException $e) {
+			throw new Exception("Database connection failed: " . $e->getMessage());
+		}
 		return $this->conn;
 	}
 

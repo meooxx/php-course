@@ -15,8 +15,8 @@
 			</h2>
 			<p class="mb-4">
 				Doomino's is an original name for this coursework site. The layout
-				practices common pizza-ordering patterns (blue header, cream background, delivery /
-				carryout choice, menu cards) and is built with Tailwind CSS.
+				practices common pizza-ordering patterns (blue header, background, delivery /
+				carryout choice, menu) and is built with Tailwind CSS.
 			</p>
 			<p class="mb-5">
 				This is not a real restaurant and is not affiliated with Domino's or any other pizza
