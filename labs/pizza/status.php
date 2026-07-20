@@ -1,5 +1,6 @@
 <?php
 $success = isset($_GET['success']) && (string) $_GET['success'] === '1';
+$msg = isset($_GET['message']) || '';
 $isSuccess = $success;
 ?>
 <?php
@@ -12,10 +13,12 @@ require_once 'templates/nav.php';
 		role="status">
 		<?php if ($isSuccess) { ?>
 			<h1 class="font-display text-3xl uppercase tracking-wide text-green-700">Success</h1>
-			<p class="mt-3 text-muted">Your request was completed successfully.</p>
+			<p class="mt-3 text-muted">
+				<?php echo htmlspecialchars($msg) || 'Your request was completed successfully.'; ?>
+			</p>
 		<?php } else { ?>
 			<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-red">Failed</h1>
-			<p class="mt-3 text-muted">Something went wrong. Please try again.</p>
+			<p class="mt-3 text-muted"><?php echo htmlspecialchars($msg) || 'Something went wrong. Please try again.'; ?></p>
 		<?php } ?>
 		<a class="mt-6 inline-block rounded-full bg-dominos-blue px-5 py-2 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
 			href="index.php">Back to Home</a>
