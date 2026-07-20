@@ -30,7 +30,8 @@ require_once 'templates/nav.php';
 			</ul>
 		</aside>
 
-		<form class="rounded-md bg-white p-5" action="/status.php?success=1" method="get">
+		<form class="rounded-md bg-white p-5" action="status.php" method="get">
+			<input type="hidden" name="success" value="1" />
 			<h2 class="font-display mb-4 text-2xl uppercase tracking-wide text-dominos-blue">
 				Send a Message
 			</h2>
