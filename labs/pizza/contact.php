@@ -15,16 +15,16 @@ require_once 'templates/nav.php';
 			<h2 class="font-display text-2xl uppercase tracking-wide text-white">Demo Store</h2>
 			<ul class="mt-4 space-y-4">
 				<li>
-					<strong class="mb-1 block font-display uppercase tracking-wider">Address</strong>
+					<span class="mb-1 block font-display uppercase tracking-wider">Address</span>
 					123 Pizza Lab Way<br />
 					Toronto, ON M5V 2T6
 				</li>
 				<li>
-					<strong class="mb-1 block font-display uppercase tracking-wider">Phone</strong>
+					<span class="mb-1 block font-display uppercase tracking-wider">Phone</span>
 					<a class="text-sky-100 hover:underline" href="tel:+15551234567">(555) 123-4567</a>
 				</li>
 				<li>
-					<strong class="mb-1 block font-display uppercase tracking-wider">Hours</strong>
+					<span class="mb-1 block font-display uppercase tracking-wider">Hours</span>
 					Mon–Sun: 11:00 AM – 11:00 PM
 				</li>
 			</ul>

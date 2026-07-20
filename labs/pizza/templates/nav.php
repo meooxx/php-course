@@ -8,19 +8,19 @@
 			<nav class="flex-1" aria-label="Primary">
 				<ul class="flex flex-wrap gap-0.5">
 					<li>
-						<a class="inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
+						<a class="rounded-sm inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
 							href="index.php" aria-current="page">Home</a>
 					</li>
 					<li>
-						<a class="inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
+						<a class="rounded-sm inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
 							href="about.php">About</a>
 					</li>
 					<li>
-						<a class="inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
+						<a class="rounded-sm inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
 							href="shop.php">Menu</a>
 					</li>
 					<li>
-						<a class="inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
+						<a class="rounded-sm inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
 							href="contact.php">Contact</a>
 					</li>
 				</ul>
