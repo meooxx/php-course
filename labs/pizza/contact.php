@@ -53,7 +53,7 @@ require_once 'templates/nav.php';
 					name="message" required></textarea>
 			</div>
 			<button
-				class="bg-accent-blue px-4 py-1.5 font-display text-sm uppercase tracking-wider text-white hover:bg-dominos-blue-deep"
+				class="rounded-sm bg-dominos-blue px-4 py-1.5 font-display text-sm uppercase tracking-wider text-white hover:bg-dominos-blue-deep"
 				type="submit">
 				Submit
 			</button>
