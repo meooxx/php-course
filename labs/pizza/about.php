@@ -9,7 +9,7 @@
 	</div>
 
 	<section class="grid items-start gap-6 pb-6 md:grid-cols-[1.1fr_0.9fr]">
-		<div class="border border-line bg-white p-5">
+		<div class="rounded-md bg-white p-5">
 			<h2 class="font-display text-2xl uppercase tracking-wide text-dominos-blue">
 				A fictional school pizza brand
 			</h2>
@@ -25,7 +25,7 @@
 			<a class="inline-block bg-accent-blue px-4 py-1.5 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
 				href="shop.php">Browse Menu</a>
 		</div>
-		<figure class="border border-line">
+		<figure class="rounded-md overflow-hidden">
 			<img class="w-full" src="images/about-store.jpg" width="1000" height="750"
 				alt="Restaurant interior representing a pizza storefront" />
 		</figure>

@@ -109,7 +109,7 @@ require_once 'templates/nav.php';
 					<label class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue" for="customer_name">
 						Name
 					</label>
-					<input class="w-full border border-line bg-cream px-3 py-2" id="customer_name" name="name" type="text"
+					<input class="rounded-sm w-full border border-line bg-cream px-3 py-2" id="customer_name" name="name" type="text"
 						required />
 				</div>
 
@@ -117,34 +117,34 @@ require_once 'templates/nav.php';
 					<label class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue" for="email">
 						Email
 					</label>
-					<input class="w-full border border-line bg-cream px-3 py-2" id="email" name="email" type="email" required />
+					<input class="w-full rounded-sm border border-line bg-cream px-3 py-2" id="email" name="email" type="email" required />
 				</div>
 
 				<div class="mb-3">
 					<label class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue" for="phone">
 						Phone
 					</label>
-					<input class="w-full border border-line bg-cream px-3 py-2" id="phone" name="phone" type="tel" required />
+					<input class="w-full rounded-sm border border-line bg-cream px-3 py-2" id="phone" name="phone" type="tel" required />
 				</div>
 
 				<div class="mb-3">
 					<label class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue" for="quantity">
 						Qty
 					</label>
-					<input class="w-full border border-line bg-cream px-3 py-2" id="quantity" name="quantity" type="number"
+					<input class="w-full rounded-sm border border-line bg-cream px-3 py-2" id="quantity" name="quantity" type="number"
 						min="1" max="99" value="1" required />
 				</div>
 
 				<fieldset class="mb-3 border-0 p-0">
 					<legend class="mb-2 font-display text-sm uppercase tracking-wider text-dominos-blue">Size</legend>
 					<div class="flex flex-wrap gap-2">
-						<label class="option-chip cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
+						<label class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
 							<input type="radio" name="size" value="small" /> <span>Small</span>
 						</label>
-						<label class="option-chip cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
+						<label class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
 							<input type="radio" name="size" value="medium" checked /> <span>Medium</span>
 						</label>
-						<label class="option-chip cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
+						<label class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
 							<input type="radio" name="size" value="large" /> <span>Large</span>
 						</label>
 					</div>
@@ -153,10 +153,10 @@ require_once 'templates/nav.php';
 				<fieldset class="mb-3 border-0 p-0">
 					<legend class="mb-2 font-display text-sm uppercase tracking-wider text-dominos-blue">Crust</legend>
 					<div class="flex flex-wrap gap-2">
-						<label class="option-chip cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
+						<label class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
 							<input type="radio" name="crust" value="hand_tossed" checked /> <span>Hand Tossed</span>
 						</label>
-						<label class="option-chip cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
+						<label class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
 							<input type="radio" name="crust" value="handmade_pan" /> <span>Handmade Pan</span>
 						</label>
 					</div>
@@ -165,10 +165,10 @@ require_once 'templates/nav.php';
 				<fieldset class="mb-4 border-0 p-0">
 					<legend class="mb-2 font-display text-sm uppercase tracking-wider text-dominos-blue">Method</legend>
 					<div class="flex flex-wrap gap-2">
-						<label class="option-chip cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
+						<label class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
 							<input type="radio" name="fulfillment" value="carryout" checked /> <span>Carryout</span>
 						</label>
-						<label class="option-chip cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
+						<label class="option-chip rounded-sm rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
 							<input type="radio" name="fulfillment" value="delivery" /> <span>Delivery</span>
 						</label>
 					</div>
