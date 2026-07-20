@@ -56,7 +56,7 @@ try {
 						</p>
 						<div class="mt-2 flex items-center justify-between gap-2">
 							<span class="font-display text-xl text-dominos-blue">
-								<?php echo $price; ?>
+								$<?php echo $price; ?>
 							</span>
 							<a class="bg-dominos-red px-3 py-1.5 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-red-700 inline-block rounded-sm"
 								href="detail.php?id=<?php echo $id; ?>">Order</a>
