@@ -13,9 +13,9 @@ class Order
 	public function placeOrder(array $data) :bool
 	{
 		$query = "INSERT INTO {$this->table}
-			(customer_name, email, phone, product_id, size, crust, quantity, fulfillment)
+			(name, email, phone, product_id, size, crust, quantity, fulfillment)
 			VALUES
-			(:customer_name, :email, :phone, :product_id, :size, :crust, :quantity, :fulfillment)";
+			(:name, :email, :phone, :product_id, :size, :crust, :quantity, :fulfillment)";
 
 		$stmt = $this->conn->prepare($query);
 		$stmt->bindValue(':name', $data['name']);
