@@ -23,6 +23,10 @@
 						<a class="rounded-sm inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
 							href="contact.php">Contact</a>
 					</li>
+					<li>
+						<a class="rounded-sm inline-block px-3 py-2 font-display text-sm uppercase tracking-widest text-white no-underline hover:bg-black/20"
+							href="orders.php">Orders</a>
+					</li>
 				</ul>
 			</nav>
 			<a class="rounded-full bg-white px-4 py-1.5 font-display text-sm uppercase tracking-wider text-dominos-blue no-underline hover:bg-sky-50"
