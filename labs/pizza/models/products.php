@@ -20,6 +20,17 @@ class Product
 
 
 	}
+
+	public function getDetail(int $id) 
+	{
+		$query = "SELECT * FROM {$this->table} WHERE id = :id";
+		$stmt = $this->conn->prepare($query);
+		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+		if ($stmt->execute()) {
+			return $stmt->fetch();
+		}
+		throw new Exception("Query product detail failed");
+	}
 }
 
 
