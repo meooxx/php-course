@@ -10,7 +10,7 @@ try {
 	header("Location: status.php?success=0&message={$e->getMessage()}");
 	exit;
 }
-
+$pageTitle = "Doomino's | Orders";
 require_once 'templates/header.php';
 require_once 'templates/nav.php';
 ?>

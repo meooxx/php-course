@@ -1,3 +1,4 @@
+<?php $pageTitle = "Doomino's | About"; ?>
 <?php require_once 'templates/header.php'; ?>
 <?php require_once 'templates/nav.php'; ?>
 

@@ -1,4 +1,5 @@
 <?php
+$pageTitle = "Doomino's | Contact";
 require_once 'templates/header.php';
 require_once 'templates/nav.php';
 ?>

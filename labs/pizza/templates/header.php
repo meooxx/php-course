@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -7,7 +9,7 @@
 			name="description"
 			content="Doomino's — fictional school pizza site built with Tailwind CSS."
 		/>
-		<title>Doomino's | Home</title>
+		<title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : "Doomino's"; ?></title>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link

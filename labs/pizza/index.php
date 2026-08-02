@@ -1,3 +1,4 @@
+<?php $pageTitle = "Doomino's | Home"; ?>
 <?php require_once 'templates/header.php'; ?>
 <?php require_once 'templates/nav.php'; ?>
 	<main id="main" class="bg-cream">

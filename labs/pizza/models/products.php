@@ -44,10 +44,10 @@ class Product
 		
 		$query = "INSERT INTO {$this->table} (name, description, price, image) VALUES (:name, :description, :price, :image)";
 		$stmt = $this->conn->prepare($query);
-		$stmt->bindValue(':name', filter_var($name, FILTER_SANITIZE_STRING));
-		$stmt->bindValue(':description', filter_var($description, FILTER_SANITIZE_STRING));
-		$stmt->bindValue(':price', filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION));
-		$stmt->bindValue(':image', filter_var($image, FILTER_SANITIZE_STRING));
+		$stmt->bindValue(':name', $name);
+		$stmt->bindValue(':description', $description);
+		$stmt->bindValue(':price', $price);
+		$stmt->bindValue(':image', $image);
 		if ($stmt->execute()) {
 			return $this->conn->lastInsertId();
 		}

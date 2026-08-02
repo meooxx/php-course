@@ -1,8 +1,8 @@
 create table if not exists pizza_users (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	username varchar(255) not null,
+	username varchar(255) unique not null,
 	password varchar(255) not null,
-	email varchar(255) not null,
+	email varchar(255) unique not null,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	Role enum("admin", "user") DEFAULT "user" not null
 )

@@ -70,6 +70,7 @@ $pic = str_starts_with($validPic, 'https://') ? $validPic : "images/{$validPic}"
 $price = $product->price ?? 'N/A';
 $tag = $product->tag ?? 'N/A';
 
+$pageTitle = "Doomino's | Product Detail";
 require_once 'templates/header.php';
 require_once 'templates/nav.php';
 ?>
