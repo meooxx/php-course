@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS orders (
   email VARCHAR(180) NOT NULL,
   phone VARCHAR(40) NOT NULL,
   product_id INT NOT NULL,
+  user_id INT NOT NULL,
   size ENUM('small', 'medium', 'large') NOT NULL DEFAULT 'medium',
   crust ENUM('hand_tossed', 'handmade_pan') NOT NULL DEFAULT 'hand_tossed',
   quantity INT NOT NULL DEFAULT 1,
@@ -13,4 +14,7 @@ CREATE TABLE IF NOT EXISTS orders (
   CONSTRAINT fk_orders_product
     FOREIGN KEY (product_id) REFERENCES products (id)
     ON DELETE RESTRICT ON UPDATE CASCADE
-)DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT fk_orders_user
+    FOREIGN KEY (user_id) REFERENCES pizza_users (id)
+    ON DELETE RESTRICT ON UPDATE CASCADE
+) DEFAULT CHARSET=utf8mb4;

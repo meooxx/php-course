@@ -4,6 +4,7 @@ require_once 'models/Session.php';
 
 class Auth
 {
+	static private $user;
 	public function __construct()
 	{
 		Session::start();
@@ -15,6 +16,9 @@ class Auth
 	}
 	public function getUser()
 	{
+		if (self::$user !== null) {
+			return self::$user;
+		}
 		if ($this->isLoggedIn()) {
 			$userId = Session::get('user_id');
 			$database = new Database();
@@ -24,6 +28,7 @@ class Auth
 			$stmt->bindValue(':id', $userId, PDO::PARAM_INT);
 			if ($stmt->execute()) {
 				$user = $stmt->fetch();
+				self::$user = $user;
 				return $user;
 			}
 
@@ -111,7 +116,7 @@ class Auth
 		} else {
 			throw new Exception("Failed to check email existence");
 		}
-		$query = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
+		$query = "INSERT INTO pizza_users (username, password, email) VALUES (:username, :password, :email)";
 		$stmt = $conn->prepare($query);
 		$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 		$stmt->bindParam(':username', $username);

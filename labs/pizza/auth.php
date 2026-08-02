@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				exit;
 			}
 		} catch (Exception $e) {
-			header("Location: index.php?success=0&message={$e->getMessage()}");
+			header("Location: status.php?success=0&message={$e->getMessage()}");
 			exit;
 		}
 	}
@@ -70,27 +70,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<form method="POST" action="auth.php" class="max-w-sm space-y-4">
 			<input type="hidden" name="action" value="register" />
 			<div>
-				<label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+				<label for="username" class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue">Username</label>
 				<input type="text" name="username" id="username" required
-					class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-dominos-blue focus:ring focus:ring-dominos-blue focus:ring-opacity-50 sm:text-sm"
+					class="w-full rounded-sm border border-line bg-white px-3 py-2"
 					value="<?php echo htmlspecialchars($username ?? ''); ?>" />
 			</div>
 			<div>
-				<label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+				<label for="email" class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue">Email</label>
 				<input type="email" name="email" id="email" required
-					class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-dominos-blue focus:ring focus:ring-dominos-blue focus:ring-opacity-50 sm:text-sm"
+					class="w-full rounded-sm border border-line bg-white px-3 py-2"
 					value="<?php echo htmlspecialchars($email ?? ''); ?>" />
 			</div>
 			<div>
-				<label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+				<label for="password" class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue">Password</label>
 				<input type="password" name="password" id="password" required
-					class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-dominos-blue focus:ring focus:ring-dominos-blue focus:ring-opacity-50 sm:text-sm"
+					class="w-full rounded-sm border border-line bg-white px-3 py-2"
 					value="" />
 			</div>
 			<div>
-				<label for="confirm_password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+				<label for="confirm_password" class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue">Confirm Password</label>
 				<input type="password" name="confirm_password" id="confirm_password" required
-					class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-dominos-blue focus:ring focus:ring-dominos-blue focus:ring-opacity-50 sm:text-sm"
+					class="w-full rounded-sm border border-line bg-white px-3 py-2"
 					value="" />
 			</div>
 			<div>
@@ -112,15 +112,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<form method="POST" action="auth.php" class="max-w-sm space-y-4">
 			<input type="hidden" name="action" value="login" />
 			<div>
-				<label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+				<label for="username" class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue">Username</label>
 				<input type="text" name="username" id="username" required
-					class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-dominos-blue focus:ring focus:ring-dominos-blue focus:ring-opacity-50 sm:text-sm"
+					class="w-full rounded-sm border border-line bg-white px-3 py-2"
 					value="<?php echo htmlspecialchars($username ?? ''); ?>" />
 			</div>
 			<div>
-				<label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+				<label for="password" class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue">Password</label>
 				<input type="password" name="password" id="password" required
-					class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-dominos-blue focus:ring focus:ring-dominos-blue focus:ring-opacity-50 sm:text-sm"
+					class="w-full rounded-sm border border-line bg-white px-3 py-2"
 					value="" />
 			</div>
 			<div>

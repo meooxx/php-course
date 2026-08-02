@@ -35,7 +35,7 @@ require_once 'templates/nav.php';
 					<tr>
 						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">#</th>
 						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Customer</th>
-						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Pizza</th>
+						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Item</th>
 						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Size</th>
 						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Qty</th>
 						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Method</th>
