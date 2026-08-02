@@ -25,7 +25,7 @@ try {
 		<div class="grid gap-4 md:grid-cols-3">
 			<?php
 			foreach ($productsList as $product) {
-				$picurl = "images/{$product->pic}";
+				$picurl = str_starts_with($product->pic, 'https://') ? $product->pic : "images/{$product->pic}";
 				$alt = "{$product->name} pizza";
 				$tag = $product->tag;
 				$name = $product->name;

@@ -6,7 +6,8 @@ create table if not exists products (
 	name varchar(255) not null,
 	description text not null,
 	price decimal(10,2) not null,
-	pic varchar(255) not null
+	pic varchar(255) not null,
+	stock int unsigned default 99 not null
 )
 
 insert into products (tag, name, description,  price, pic) values

@@ -1,4 +1,4 @@
-create table users (
+create table if not exists pizza_users (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	username varchar(255) not null,
 	password varchar(255) not null,

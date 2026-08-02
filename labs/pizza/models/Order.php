@@ -14,6 +14,16 @@ class Order
 
 	public function placeOrder($data): bool
 	{
+		$this->conn->beginTransaction();
+		// Update stock first
+		$updateStock = "UPDATE products SET stock = stock - :quantity WHERE id = :product_id AND stock >= :quantity";
+		$updateStmt = $this->conn->prepare($updateStock);
+		$updateStmt->bindValue(':product_id', $data['product_id'], PDO::PARAM_INT);
+		$updateStmt->bindValue(':quantity', $data['quantity'], PDO::PARAM_INT);
+		if (!$updateStmt->execute() || $updateStmt->rowCount === 0) {
+			$this->conn->rollBack();
+			throw new Exception('Insufficient stock for product ID ' . $data['product_id']);
+		}
 		$query = "INSERT INTO {$this->table}
 			(name, email, phone, product_id, size, crust, quantity, fulfillment)
 			VALUES
@@ -28,8 +38,10 @@ class Order
 		$stmt->bindValue(':crust', $data['crust']);
 		$stmt->bindValue(':quantity', $data['quantity'], PDO::PARAM_INT);
 		$stmt->bindValue(':fulfillment', $data['fulfillment']);
+		$result =$stmt->execute();
+		$this->conn->commit();
+		return $result;
 
-		return $stmt->execute();
 	}
 
 	public function getOrders($page = 1, $count = 99): array

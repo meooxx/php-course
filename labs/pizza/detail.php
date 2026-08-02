@@ -63,10 +63,10 @@ try {
 	header('Location: status.php?success=0&message=Product not found.');
 	exit;
 }
-
+$validPic = !empty($product->pic) ? $product->pic : 'https://placehold.co/800x800?text=no+image';
 $name = $product->name ?? 'No name';
 $des = $product->description ?? 'No description available.';
-$pic = !empty($product->pic) ? 'images/' . $product->pic : 'https://placehold.co/800x800?text=no+image';
+$pic = str_starts_with($validPic, 'https://') ? $validPic : "images/{$validPic}";
 $price = $product->price ?? 'N/A';
 $tag = $product->tag ?? 'N/A';
 
