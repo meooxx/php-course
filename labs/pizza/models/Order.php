@@ -27,7 +27,8 @@ class Order
 		$updateStmt = $this->conn->prepare($updateStock);
 		$updateStmt->bindValue(':product_id', $data['product_id'], PDO::PARAM_INT);
 		$updateStmt->bindValue(':quantity', $data['quantity'], PDO::PARAM_INT);
-		if (!$updateStmt->execute() || $updateStmt->rowCount === 0) {
+		error_log($updateStmt->rowCount() . " rows affected by stock update.");
+		if (!$updateStmt->execute() || $updateStmt->rowCount() === 0) {
 			$this->conn->rollBack();
 			throw new Exception('Insufficient stock for product ID ' . $data['product_id']);
 		}
