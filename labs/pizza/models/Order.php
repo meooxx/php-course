@@ -1,13 +1,15 @@
 <?php
-
+require_once 'models/Database.php';
 class Order
 {
 	private PDO $conn;
 	private string $table = 'orders';
 
-	public function __construct(PDO $conn)
+	public function __construct()
 	{
-		$this->conn = $conn;
+		$database = new Database();
+		$this->conn = $database->getInstance();
+
 	}
 
 	public function placeOrder($data): bool

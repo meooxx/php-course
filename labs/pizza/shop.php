@@ -1,14 +1,10 @@
 <?php require_once 'templates/header.php'; ?>
-<?php require_once 'models/Database.php'; ?>
 <?php require_once 'models/products.php'; ?>
 <?php
 
-$db = new Database();
-
 $productsList = [];
 try {
-	$conn = $db->connect();
-	$productModel = new Product($conn);
+	$productModel = new Product();
 	$productsList = $productModel->getProducts();
 } catch (Exception $e) {
 	header("Location: status.php?success=0&message={$e->getMessage()}");

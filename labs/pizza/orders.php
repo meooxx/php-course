@@ -1,13 +1,10 @@
 <?php
-require_once 'models/Database.php';
 require_once 'models/Order.php';
 
-$db = new Database();
 $orders = [];
 
 try {
-	$conn = $db->connect();
-	$orderModel = new Order($conn);
+	$orderModel = new Order();
 	$orders = $orderModel->getOrders();
 } catch (Exception $e) {
 	header("Location: status.php?success=0&message={$e->getMessage()}");

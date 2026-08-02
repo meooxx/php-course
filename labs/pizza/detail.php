@@ -1,17 +1,14 @@
 <?php
-require_once 'models/Database.php';
 require_once 'models/products.php';
 require_once 'models/Order.php';
 
-$db = new Database();
-$conn = $db->connect();
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : (isset($_POST['product_id']) ? (int) $_POST['product_id'] : 1);
 
 // Save order then redirect
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$success = false;
-	$orderModel = new Order($conn);
+	$orderModel = new Order();
 	$name = trim($_POST['name'] ?? '');
 	$email = trim($_POST['email'] ?? '');
 	$phone = trim($_POST['phone'] ?? '');
@@ -56,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $product = null;
 try {
-	$productModel = new Product($conn);
+	$productModel = new Product();
 	$product = $productModel->getDetail($id);
 	if (!$product) {
 		throw new Exception('Product not found');

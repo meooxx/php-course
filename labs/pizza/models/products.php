@@ -1,11 +1,13 @@
 <?php
+require_once 'models/Database.php';
 class Product
 {
 	private PDO $conn;
 	private string $table = 'products';
-	public function __construct(PDO $conn)
+	public function __construct()
 	{
-		$this->conn = $conn;
+		$database = new Database();
+		$this->conn = $database->getInstance();
 	}
 
 	public function getProducts()
