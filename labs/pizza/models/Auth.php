@@ -35,6 +35,13 @@ class Auth
 		}
 		return null;
 	}
+	public function requireAdmin()
+	{
+		if (!$this->isLoggedIn() || $this->getUser()->role !== 'admin') {
+			header('Location: status.php?message=You must be logged in as an admin to access this page.');
+			exit;
+		}
+	}
 	public function requireLogin()
 	{
 		if (!$this->isLoggedIn()) {

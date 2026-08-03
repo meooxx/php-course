@@ -87,7 +87,10 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 										<?php echo htmlspecialchars($user->username); ?>
 									</span>
 								</div>
-								<a class=" hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-red-600 hover:text-dominos-red hover:outline-hidden"
+								<a href="product.php" class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-dominos-blue   hover:text-dominos-blue-deep hover:outline-hidden">
+									Products
+								</a>
+								<a class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-red-600 hover:text-dominos-red hover:outline-hidden"
 									href="auth.php?action=logout">
 									logout
 								</a>
