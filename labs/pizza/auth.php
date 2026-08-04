@@ -1,129 +1,29 @@
 <?php
+require_once 'controllers/AuthController.php';
 
-require_once 'models/Auth.php';
-
-
+$controller = new AuthController();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	if ($_POST['action'] == 'register') {
-
-
-		$username = trim($_POST['username'] ?? '');
-		$password = trim($_POST['password'] ?? '');
-		$confirmPassword = trim($_POST['confirm_password'] ?? '');
-		$email = trim($_POST['email'] ?? '');
-		$role = trim($_POST['role'] ?? 'user');
-		$auth = new Auth();
-		try {
-			$result = $auth->register($username, $password, $confirmPassword, $email, $role);
-			if ($result !== false) {
-				header('Location: index.php');
-				exit;
-			}
-		} catch (Exception $e) {
-			header("Location: status.php?success=0&message={$e->getMessage()}");
-			exit;
-		}
-		exit;
-	}
-	if ($_POST['action'] == 'login') {
-
-		$username = trim($_POST['username'] ?? '');
-		$password = trim($_POST['password'] ?? '');
-		$auth = new Auth();
-		try {
-			$result = $auth->login($username, $password);
-			if ($result !== false) {
-				header('Location: index.php');
-				exit;
-			}
-		} catch (Exception $e) {
-			header("Location: status.php?success=0&message={$e->getMessage()}");
-			exit;
-		}
-		exit;
-	}
-	if ($_POST['action'] == 'delete') {
-		$auth = new Auth();
-		$targetUserId = $_POST['targetUserId'] ?? null;
-		if (isset($targetUserId)) {
-			try {
-				$auth->deleteUser($targetUserId);
-				header("Location: status.php?success=1&message=User deleted successfully.");
-				exit;
-			} catch (Exception $e) {
-				header("Location: status.php?success=0&message={$e->getMessage()}");
-				exit;
-			}
-		} else {
-			header("Location: status.php?success=0&message=Invalid request.");
-			exit;
-		}
-		exit;
-	}
-	if ($_POST['action'] == 'update') {
-		$auth = new Auth();
-		$username = trim($_POST['username'] ?? '');
-		$email = trim($_POST['email'] ?? '');
-		$targetId = trim($_POST['userId'] ?? '');
-		$role = trim($_POST['role'] ?? '');
-		try {
-			$auth->updateUser($targetId, $username, $email, $role);
-			header("Location: status.php?success=1&message=Profile updated successfully.");
-			exit;
-		} catch (Exception $e) {
-			header("Location: status.php?success=0&message={$e->getMessage()}");
-			exit;
-		}
-	}
-
+	$controller->handlePost($_POST);
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
-	$pageType = isset($_GET['act']) ? strToLower($_GET['act']) : 'LOGIN'; // default to 'LOGIN' if not specified
-	if ($pageType == 'logout') {
-		$auth = new Auth();
-		$auth->logout();
-		header('Location: index.php');
-		exit;
-	}
-	if ($pageType === 'update') {
-		$auth = new Auth();
-		$pendingUpdateUserId = $_GET['id'] ?? null;
-		if (isset($pendingUpdateUserId)) {
-			try {
-				$pendingUpdateUser = $auth->getUserById($pendingUpdateUserId);
-				if (!$pendingUpdateUser) {
-					throw new Exception('User not found');
-				}
-				$username = $pendingUpdateUser->username;
-				$email = $pendingUpdateUser->email;
-				$role = $pendingUpdateUser->role;
-			} catch (Exception $e) {
-				header("Location: status.php?success=0&message={$e->getMessage()}");
-				exit;
-			}
-		} else {
-			header("Location: status.php?success=0&message=Invalid request.");
-			exit;
-		}
-	}
-	// convert to 'Login' | 'Register' for display
-	$pageStr = ucfirst($pageType);
-	$pageTitle = "Doomino's | $pageStr";
-	$pageDescription = $pageType === 'register' ? 'Create an account to place orders.' : ($pageType === 'login' ? 'Access your account to place orders.' : 'Update your profile information.');
+	$view = $controller->handleGet($_GET);
+	$pageType = $view['pageType'];
+	$pageStr = $view['pageStr'];
+	$pageTitle = $view['pageTitle'];
+	$pageDescription = $view['pageDescription'];
+	$canAssignAdminRole = $view['canAssignAdminRole'];
+	$username = $view['username'];
+	$email = $view['email'];
+	$role = $view['role'];
+	$pendingUpdateUserId = $view['pendingUpdateUserId'];
 }
-
-$viewerAuth = new Auth();
-$canAssignAdminRole = $viewerAuth->isAdmin();
-
 ?>
 
 <?php require_once 'templates/header.php'; ?>
 <?php require_once 'templates/nav.php'; ?>
-<?php if ($pageType === 'register') { ?>
+<?php if (($pageType ?? '') === 'register') { ?>
 	<main id="main" class="mx-auto max-w-[980px] px-4 pb-10">
 		<div class="pb-4 pt-7">
 			<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-blue md:text-4xl">
@@ -147,7 +47,7 @@ $canAssignAdminRole = $viewerAuth->isAdmin();
 					class="w-full rounded-sm border border-line bg-white px-3 py-2"
 					value="<?php echo htmlspecialchars($email ?? ''); ?>" />
 			</div>
-			<?php if ($canAssignAdminRole): ?>
+			<?php if (!empty($canAssignAdminRole)): ?>
 				<div class="mb-3.5 flex flex-wrap gap-2">
 					<label class="option-chip rounded-sm cursor-pointer border-2 border-line  px-3 py-1.5 text-sm font-bold">
 						<input type="radio" name="role" value="admin" />
@@ -175,14 +75,14 @@ $canAssignAdminRole = $viewerAuth->isAdmin();
 			</div>
 			<div>
 				<button type="submit"
-					class="w-full rounded-md bg-dominos-blue px-4 py-2 text-white font-medium hover:bg-dominos-blue-deep focus:outline-none focus:ring-2 focus:ring-dominos	-blue focus:ring-offset-2">
+					class="w-full rounded-md bg-dominos-blue px-4 py-2 text-white font-medium hover:bg-dominos-blue-deep focus:outline-none focus:ring-2 focus:ring-dominos-blue focus:ring-offset-2">
 					Register
 				</button>
 			</div>
 		</form>
 	</main>
 <?php }
-if ($pageType === 'login') { ?>
+if (($pageType ?? '') === 'login') { ?>
 	<main id="main" class="mx-auto max-w-[980px] px-4 pb-10">
 		<div class="pb-4 pt-7">
 			<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-blue md:text-4xl">
@@ -214,7 +114,7 @@ if ($pageType === 'login') { ?>
 		</form>
 	</main>
 <?php }
-if ($pageType === 'update') { ?>
+if (($pageType ?? '') === 'update') { ?>
 	<main id="main" class="mx-auto max-w-[980px] px-4 pb-10">
 		<div class="pb-4 pt-7">
 			<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-blue md:text-4xl">
@@ -249,9 +149,6 @@ if ($pageType === 'update') { ?>
 					<input type="radio" name="role" value="user" <?php echo $role == 'user' ? 'checked' : ''; ?> />
 					<span>User</span>
 				</label>
-
-
-
 			</div>
 			<div>
 				<button type="submit"
@@ -262,8 +159,5 @@ if ($pageType === 'update') { ?>
 		</form>
 	</main>
 <?php } ?>
-
-
-
 
 <?php require_once 'templates/footer.php'; ?>
