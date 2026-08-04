@@ -36,7 +36,52 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 
 <body class="min-w-[320px] overflow-x-auto bg-cream font-body text-ink antialiased">
 	<header class="bg-dominos-blue text-white">
-		<div class="mx-auto flex max-w-[980px] flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 md:flex-nowrap">
+		<div class="border-b border-white/20">
+			<?php if (!$isLoggedIn): ?>
+				<form method="POST" action="auth.php" class="w-full px-2 py-2 grid md:grid-cols-[8fr_2fr] grid-cols=1 gap-2 ">
+					<input type="hidden" name="action" value="login" />
+					<div class="grid grid-cols-2 gap-2">
+						<div class="md:flex-1">
+							<label class="sr-only" for="header-username">Username</label>
+							<input id="header-username" name="username" type="text" required placeholder="Username"
+								class="w-full rounded-sm border border-line bg-white px-3 py-2 text-sm text-ink outline-none focus:border-dominos-blue focus:ring-1 focus:ring-dominos-blue" />
+						</div>
+						<div class="md:flex-1">
+							<label class="sr-only" for="header-password">Password</label>
+							<input id="header-password" name="password" type="password" required placeholder="Password"
+								class="w-full rounded-sm border border-line bg-white px-3 py-2 text-sm text-ink outline-none focus:border-dominos-blue focus:ring-1 focus:ring-dominos-blue" />
+						</div>
+					</div>
+
+
+					<div class="flex gap-2 md:shrink-0">
+						<button type="submit"
+							class="w-full md:w-28 rounded-sm bg-white px-4 py-2 font-display text-xs uppercase tracking-wider text-dominos-blue hover:bg-sky-50">
+							Login
+						</button>
+						<a class="w-full md:w-28 rounded-sm bg-white px-4 py-2 text-center font-display text-xs uppercase tracking-wider text-dominos-blue hover:bg-sky-50 no-underline"
+							href="auth.php?act=register">Register</a>
+					</div>
+
+				</form>
+			<?php else: ?>
+				<div class="pt-2 py-2 px-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+					<div class="flex items-center gap-2 text-sm">
+						<?php if (isset($user)): ?>
+							<span class="font-display uppercase tracking-wide text-white/90">
+								Hello, <?php echo htmlspecialchars($user->username); ?>
+							</span>
+						<?php endif; ?>
+						<?php if ($isAdmin): ?>
+							<span
+								class="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-xs uppercase tracking-wider text-white">Admin</span>
+						<?php endif; ?>
+					</div>
+
+				</div>
+			<?php endif; ?>
+		</div>
+		<div class="mx-auto flex w-full flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 md:flex-nowrap">
 			<a class="flex shrink-0 items-center gap-2 text-white no-underline hover:text-white" href="index.php">
 				<img class="h-9 w-9" src="images/logo.svg" width="36" height="36" alt="" />
 				<span class="hidden font-display text-xl uppercase tracking-wider min-[375px]:inline">Doomino's</span>
@@ -76,7 +121,6 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 			<div class="order-2 items-center ml-auto flex gap-2 md:order-none md:ml-auto">
 				<a class="shrink-0 rounded-full bg-white px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-blue no-underline hover:bg-sky-50 sm:px-4 sm:text-sm md:order-none md:ml-auto"
 					href="shop.php">Order</a>
-
 				<!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
 				<!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
 				<el-dropdown class="inline-flex">
