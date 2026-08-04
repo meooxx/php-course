@@ -16,10 +16,10 @@ class Auth
 	}
 	public function getUserById($userId)
 	{
-
-		if (!$this->isLoggedIn()) {
-			throw new Exception('Only logged-in users can get user details.');
+		if(!isset($userId)) {
+			throw new Exception("User ID is required");
 		}
+
 		$database = new Database();
 		$conn = $database->getInstance();
 		$query = "SELECT * FROM pizza_users WHERE id = :id";
@@ -49,8 +49,7 @@ class Auth
 
 			} catch (Exception $e) {
 				$this->logout();
-				header("Location: status.php?success=0&message={$e->getMessage()}");
-				exit;
+				throw new Exception("User not found. Please log in again.");
 			}
 		}
 		return null;
