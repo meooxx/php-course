@@ -17,6 +17,7 @@ class Database
 			$instance = new PDO($dsn, $this->username, $this->password);
 			$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$instance->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+			$instance->setAttribute(PDO::ATTR_TIMEOUT, 2);
 			self::$instance = $instance;
 
 		} catch (PDOException $e) {

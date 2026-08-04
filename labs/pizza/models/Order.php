@@ -63,7 +63,9 @@ class Order
 		$user = $auth->getUser();
 		$userId = $user ? $user->id : null;
 		$role = $user ? $user->role : null;
-		$query = "SELECT o.*, p.name AS product_name
+		$query = "SELECT o.*, 
+			p.name AS product_name,
+			p.pic as product_image
 			FROM {$this->table} o
 			LEFT JOIN products p ON p.id = o.product_id
 			WHERE :role = 'admin' OR (:userId IS not NULL and o.user_id = :userId) 

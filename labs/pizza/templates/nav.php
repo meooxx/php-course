@@ -4,9 +4,15 @@ $current = $_SERVER['REQUEST_URI'] ? $_SERVER['REQUEST_URI'] : '';
 $auth = new Auth();
 
 $isLoggedIn = $auth->isLoggedIn();
-$user = $auth->getUser();
-error_log("User: " . print_r($user, true));
-$isAdmin = $isLoggedIn && $user->role === 'admin';
+try {
+	$user = $auth->getUser();
+	error_log("User: " . print_r($user, true));
+	$isAdmin = $isLoggedIn && $user->role === 'admin';
+
+} catch (Exception $e) {
+	header("Location: status.php?message=" . $e->getMessage());
+	exit;
+}
 
 function getActiveClass($current, $path, bool $ishome = false): string
 {
@@ -75,10 +81,11 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 					<el-menu anchor="bottom end" popover
 						class="divide-y divide-white/10 w-50 shadow-sm origin-top-right my-1 rounded-md bg-white/4 outline-1 -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
 						<div class="py-1 ">
-							<?php if ($isLoggedIn): ?>
+							<?php if ($isLoggedIn && isset($user)): ?>
 								<div
 									class="border-b gap-1 items-center flex hover:cursor-default block hover:bg-white/5 px-4 py-2 text-sm text-dominos-blue  hover:outline-hidden">
-									<svg class="inline-flex" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20">
+									<svg class="inline-flex" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+										viewBox="0 0 20 20">
 										<path d="M0 0h20v20H0z" fill="none" />
 										<path fill="currentColor"
 											d="M10 9.25c-2.27 0-2.73-3.44-2.73-3.44C7 4.02 7.82 2 9.97 2c2.16 0 2.98 2.02 2.71 3.81c0 0-.41 3.44-2.68 3.44m0 2.57L12.72 10c2.39 0 4.52 2.33 4.52 4.53v2.49s-3.65 1.13-7.24 1.13c-3.65 0-7.24-1.13-7.24-1.13v-2.49c0-2.25 1.94-4.48 4.47-4.48z" />
@@ -87,9 +94,13 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 										<?php echo htmlspecialchars($user->username); ?>
 									</span>
 								</div>
-								<a href="product.php" class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-dominos-blue   hover:text-dominos-blue-deep hover:outline-hidden">
-									Products
-								</a>
+								<?php if ($isAdmin): ?>
+									<a href="product.php"
+										class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-dominos-blue   hover:text-dominos-blue-deep hover:outline-hidden">
+										Products
+									</a>
+								<?php endif; ?>
+
 								<a class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-red-600 hover:text-dominos-red hover:outline-hidden"
 									href="auth.php?action=logout">
 									logout

@@ -36,6 +36,7 @@ require_once 'templates/nav.php';
 						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">#</th>
 						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Customer</th>
 						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Item</th>
+						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">IMG</th>
 						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Size</th>
 						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Qty</th>
 						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Method</th>
@@ -43,7 +44,8 @@ require_once 'templates/nav.php';
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($orders as $order) { ?>
+					<?php foreach ($orders as $order) {
+						$imgUrl = str_starts_with($order->product_image, 'https://') ? $order->product_image : 'images/' . $order->product_image; ?>
 						<tr class="border-t border-line">
 							<td class="px-3 py-2"><?php echo (int) $order->id; ?></td>
 							<td class="px-3 py-2">
@@ -53,6 +55,10 @@ require_once 'templates/nav.php';
 							</td>
 							<td class="px-3 py-2">
 								<?php echo htmlspecialchars($order->product_name ?? 'Product #' . $order->product_id); ?>
+							</td>
+							<td class="px-3 py-2">
+								<img class="aspect-square w-full max-w-[50px] rounded-md border border-line object-cover"
+									src="<?php echo $imgUrl; ?>" alt="Product Image" />
 							</td>
 							<td class="px-3 py-2"><?php echo htmlspecialchars($order->size); ?></td>
 							<td class="px-3 py-2"><?php echo (int) $order->quantity; ?></td>
