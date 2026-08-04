@@ -18,92 +18,109 @@ try {
 	header("Location: status.php?success=0&message={$e->getMessage()}");
 	exit;
 }
+
+$totalProducts = count($products);
+
+
 $pageTitle = "Doomino's | Products";
 require_once 'templates/header.php';
 require_once 'templates/nav.php';
 ?>
 
 <main id="main" class="mx-auto max-w-[980px] px-4 pb-10">
-	<div class="pb-4 pt-7">
-		<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-blue md:text-4xl">
-			Products
-		</h1>
-		<p class="mt-1 text-muted">Products in the menu.</p>
+	<div class="flex flex-wrap items-end justify-between gap-3 pb-4 pt-7">
+		<div>
+			<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-blue md:text-4xl">
+				Inventory
+			</h1>
+			<p class="mt-1 text-muted">Stock board for menu items.</p>
+		</div>
+		<?php if ($showAdminFeatures): ?>
+			<a class="shrink-0 rounded-full bg-dominos-blue px-4 py-1.5 font-display text-sm tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
+				href="product_edit.php">+ Add item</a>
+		<?php endif; ?>
 	</div>
 
-	<?php if (count($products) === 0) { ?>
+	<?php if ($totalProducts === 0) { ?>
 		<p class="border border-line bg-white px-4 py-8 text-center text-muted">
 			No products yet.
 			<a class="text-dominos-blue underline-offset-2 hover:underline" href="index.php">Browse the Home page</a>
 		</p>
 	<?php } else { ?>
+		<ul class="flex flex-col gap-3">
+			<?php foreach ($products as $product) {
+				$imgUrl = str_starts_with($product->pic, 'https://') ? $product->pic : 'images/' . $product->pic;
+				$stock = isset($product->stock) ? (int) $product->stock : 0;
+				if ($stock <= 0) {
+					$statusLabel = 'Sold out';
+					$statusClass = 'bg-dominos-red text-white';
 
-		<?php if ($showAdminFeatures): ?>
-			<a class="w-20 justify-self-end justify-center mr-0 grow-0 flex mb-2 shrink-0 rounded-full bg-white px-3 py-1.5 font-display  font-normal text-xs tracking-wider text-dominos-blue no-underline hover:bg-sky-50 sm:px-4 sm:text-sm md:order-none md:ml-auto"
-				href="product_edit.php">Add</a>
-		<?php endif; ?>
-		<div class="overflow-x-auto border border-line bg-white">
+				} elseif ($stock <= 10) {
+					$statusLabel = 'Low';
+					$statusClass = 'bg-amber-500 text-white';
 
-			<table class="w-full min-w-[640px] text-left text-sm">
-				<thead class="bg-dominos-blue text-white">
-					<tr>
-						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">#</th>
-						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Name</th>
-						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Tag</th>
-						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">Des</th>
-						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">price</th>
-						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">image</th>
-						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">stock</th>
-						<th class="px-3 py-2 font-display text-xs uppercase tracking-wider">action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach ($products as $product) {
-						$imgUrl = str_starts_with($product->pic, 'https://') ? $product->pic : 'images/' . $product->pic;
-						?>
-						<tr class="border-t border-line">
-							<td class="px-3 py-2">
-								<?php echo (int) $product->id; ?>
-							</td>
-							<td class="px-3 py-2">
-								<?php echo htmlspecialchars($product->name); ?>
-								<br />
+				} else {
+					$statusLabel = 'In stock';
+					$statusClass = 'bg-emerald-600 text-white';
+				}
+				?>
+				<li class="rounded-sm overflow-hidden border border-line bg-white">
+					<div class="flex flex-col sm:flex-row">
+						<div class="relative h-36 shrink-0 overflow-hidden bg-neutral-200 sm:h-auto sm:w-36 md:w-44">
+							<img class="h-full w-full object-cover" src="<?php echo htmlspecialchars($imgUrl); ?>"
+								alt="<?php echo htmlspecialchars($product->name); ?>" width="400" height="400" />
+							<span
+								class="absolute left-2 top-2 rounded-sm <?php echo $statusClass; ?> px-1.5 py-0.5 font-display text-[10px] uppercase tracking-wider">
+								<?php echo $statusLabel; ?>
+							</span>
+						</div>
 
-							</td>
-							<td class="px-3 py-2">
-								<?php echo htmlspecialchars($product->tag); ?>
-							</td>
-							<td class="px-3 py-2">
+						<div class="flex min-w-0 flex-1 flex-col gap-2 p-3.5 sm:p-4">
+							<div class="flex flex-wrap items-start justify-between gap-2">
+								<div class="min-w-0">
+									<p class="text-xs text-muted">#<?php echo (int) $product->id; ?> ·
+										<?php echo htmlspecialchars($product->tag); ?>
+									</p>
+									<h3 class="font-display text-xl uppercase tracking-wide text-dominos-blue">
+										<?php echo htmlspecialchars($product->name); ?>
+									</h3>
+								</div>
+								<span class="shrink-0 font-display text-2xl text-dominos-blue">
+									$<?php echo htmlspecialchars($product->price); ?>
+								</span>
+							</div>
+
+							<p class="line-clamp-2 text-sm text-muted">
 								<?php echo htmlspecialchars($product->description); ?>
-							</td>
-							<td class="px-3 py-2">
-								<?php echo htmlspecialchars($product->price); ?>
-							</td>
-							<td class="px-3 py-2">
-								<img src="<?php echo htmlspecialchars($imgUrl); ?>" alt="<?php echo htmlspecialchars($product->name); ?>"
-									class="h-10 w-10 rounded object-cover" />
-							</td>
-							<td class="px-3 py-2">
-								<?php echo $product->stock; ?>
-							</td>
-							<td class="px-3 py-2 flex gap-2">
-								<?php if ($showAdminFeatures): ?>
-									<a href="product_edit.php?id=<?php echo $product->id; ?>" class="text-dominos-blue underline-offset-2 hover:underline">Edit</a>
-									<form method="POST" action="product_edit.php">
-										<input type="hidden" name="deleteId" value="<?php echo $product->id; ?>" />
-										<input type="hidden" name="action"	 value="delete" />
-										<button type="submit" class="text-dominos-red underline-offset-2 hover:underline">Del</button>
-									</form>
-								<?php else: ?>
-									<span class="text-muted">#</span>
-								<?php endif; ?>
-							</td>
+							</p>
 
-						</tr>
-					<?php } ?>
-				</tbody>
-			</table>
-		</div>
+							<div class="mt-auto flex flex-wrap items-end justify-between gap-3 pt-1">
+								<div class="min-w-[140px] flex-1">
+									<div class="mb-1 flex items-center justify gap-2 text-xs">
+										<span class="text-muted">Stock</span>
+										<span class="font-display tracking-wide text-ink"><?php echo $stock; ?></span>
+									</div>
+
+								</div>
+
+								<?php if ($showAdminFeatures): ?>
+									<div class="flex items-center gap-2">
+										<a href="product_edit.php?id=<?php echo (int) $product->id; ?>"
+											class="rounded-sm border border-dominos-blue px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-blue no-underline hover:bg-sky-50">Edit</a>
+										<form method="POST" action="product_edit.php" class="inline">
+											<input type="hidden" name="deleteId" value="<?php echo (int) $product->id; ?>" />
+											<input type="hidden" name="action" value="delete" />
+											<button type="submit"
+												class="rounded-sm border border-dominos-red px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-red hover:bg-red-50">Del</button>
+										</form>
+									</div>
+								<?php endif; ?>
+							</div>
+						</div>
+					</div>
+				</li>
+			<?php } ?>
+		</ul>
 	<?php } ?>
 </main>
 
