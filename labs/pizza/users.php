@@ -82,7 +82,7 @@ require_once 'templates/nav.php';
 										class="text-dominos-blue underline-offset-2 hover:underline">Edit</a>
 									<form method="POST" action="auth.php">
 										<input type="hidden" name="action" value="delete" />
-										<input type="hidden" name="userId" value="<?php echo $user->id; ?>" />
+										<input type="hidden" name="targetUserId" value="<?php echo $user->id; ?>" />
 										<button type="submit" class="text-dominos-red underline-offset-2 hover:underline">Del</button>
 									</form>
 

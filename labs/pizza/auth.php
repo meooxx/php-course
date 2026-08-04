@@ -45,10 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	}
 	if ($_POST['action'] == 'delete') {
 		$auth = new Auth();
-		$userId = $_POST['userId'] ?? null;
-		if (isset($userId)) {
+		$targetUserId = $_POST['targetUserId'] ?? null;
+		if (isset($targetUserId)) {
 			try {
-				$auth->deleteUser($userId);
+				$auth->deleteUser($targetUserId);
 				header("Location: status.php?success=1&message=User deleted successfully.");
 				exit;
 			} catch (Exception $e) {
