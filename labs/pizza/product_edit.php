@@ -1,99 +1,28 @@
 <?php
-require_once 'models/Auth.php';
-require_once 'models/products.php';
-$auth = new Auth();
-$auth->requireAdmin();
-$productId = '';
+require_once 'controllers/ProductController.php';
 
-$name = '';
-$des = '';
-$pic = '';
-$price = '';
-$tag = '';
-$stock = '';
-$validPic = '';
-
+$controller = new ProductController();
+$controller->requireAdmin();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	if ($_POST['action'] == 'delete') {
-		$deleteId = $_POST['deleteId'] ?? null;
-		if (isset($deleteId)) {
-			$productModel = new Product();
-			try {
-				$productModel->deleteProduct($deleteId);
-				header("Location: status.php?success=1&message=Product deleted successfully.");
-				exit;
-			} catch (Exception $e) {
-				header("Location: status.php?success=0&message={$e->getMessage()}");
-				exit;
-			}
-		}
-		exit;
-	}
-	// Handle form submission
-	$name = trim($_POST['name'] ?? '');
-	$description = trim($_POST['description'] ?? '');
-	$stock = (int) ($_POST['stock'] ?? 0);
-	$pic = trim($_POST['pic'] ?? '');
-	$tag = trim($_POST['tag'] ?? '');
-	$price = (float) ($_POST['price'] ?? 0);
-	$pId = trim($_POST['targetId'] ?? '');
-
-	if (empty($name) || empty($description) || $price <= 0 || $stock > 99 || $stock <= 0 || empty($pic)) {
-
-		header('Location: status.php?success=0&message=Invalid input.' . urlencode(" Name: $name, Description: $description, Price: $price, Stock: $stock, Pic: $pic"));
-		exit;
-	}
-
-	try {
-		$productModel = new Product();
-
-		if (!empty($pId)) {
-			// Update existing product
-			$productModel->updateProduct($pId, $name, $description, $price, $pic, $stock, $tag);
-			header('Location: status.php?success=1&message=Product updated successfully.');
-			exit;
-		} else {
-			// Add new product
-			$productModel->newProduct($name, $description, $price, $pic, $stock, $tag);
-			header('Location: status.php?success=1&message=Product added successfully.');
-			exit;
-		}
-	} catch (Exception $e) {
-		header("Location: status.php?success=0&message={$e->getMessage()}");
-		exit;
-	}
-}
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-	$product = null;
-	$productId = $_GET['id'];
-	try {
-		$productModel = new Product();
-		$product = $productModel->getDetail((int) $productId);
-		if (!$product) {
-			throw new Exception('Product not found');
-		}
-		$validPic = !empty($product->pic) ? $product->pic : 'https://placehold.co/800x800?text=no+image';
-		$name = $product->name ?? '';
-		$des = $product->description ?? '';
-		$pic = str_starts_with($validPic, 'https://') ? $validPic : "images/{$validPic}";
-		$price = $product->price ?? '';
-		$tag = $product->tag ?? '';
-		$stock = $product->stock ?? '';
-	} catch (Exception $e) {
-		header('Location: status.php?success=0&message=Product not found.');
-		exit;
-	}
+	$controller->handlePost($_POST);
 }
 
-// require_once 
+$view = $controller->loadForEdit($_GET['id'] ?? null);
+$productId = $view['productId'];
+$name = $view['name'];
+$des = $view['des'];
+$pic = $view['pic'];
+$price = $view['price'];
+$tag = $view['tag'];
+$stock = $view['stock'];
+$validPic = $view['validPic'];
+
 $pageTitle = "Doomino's | " . (isset($productId) ? 'Edit' : 'Add') . " Product";
 $pageDescription = 'Product add/edit page for a dish';
 
 require_once 'templates/header.php';
 require_once 'templates/nav.php';
-
-
 ?>
 
 <main id="main" class="mx-auto max-w-[980px] px-4 pb-10">
@@ -126,7 +55,6 @@ require_once 'templates/nav.php';
 					<input type="radio" name="tag" value="veggie" <?php echo $tag == 'veggie' ? 'checked' : ''; ?> />
 					<span>Veggie</span>
 				</label>
-
 			</div>
 
 			<div class="mb-3.5">
@@ -154,15 +82,13 @@ require_once 'templates/nav.php';
 					Picture
 				</label>
 				<div class="md:grid md:grid-cols-[9fr_1fr] items-center gap-1">
-					<input value="<?php echo $validPic; ?>" class="w-full rounded-sm border border-line px-3 py-2" id="picture"
+					<input value="<?php echo htmlspecialchars($validPic); ?>" class="w-full rounded-sm border border-line px-3 py-2" id="picture"
 						name="pic" required />
 					<?php if (!empty($pic)): ?>
 						<img class="mt-2 max-w-20 md:max-w-[50px] md:mt-0 aspect-square rounded-md border border-line object-fill"
-							src="<?php echo $pic; ?>" alt="Product Image" />
-					</div>
-
-
-				<?php endif; ?>
+							src="<?php echo htmlspecialchars($pic); ?>" alt="Product Image" />
+					<?php endif; ?>
+				</div>
 			</div>
 
 			<button
@@ -174,6 +100,4 @@ require_once 'templates/nav.php';
 	</section>
 </main>
 
-<?php
-require_once 'templates/footer.php';
-?>
+<?php require_once 'templates/footer.php'; ?>
