@@ -32,7 +32,7 @@ require_once 'templates/nav.php';
 		<p class="mt-1 text-muted">Users in the system.</p>
 	</div>
 	<a class="w-20 justify-self-end justify-center mr-0 grow-0 flex mb-2 shrink-0 rounded-full bg-white px-3 py-1.5 font-display  font-normal text-xs tracking-wider text-dominos-blue no-underline hover:bg-sky-50 sm:px-4 sm:text-sm md:order-none md:ml-auto"
-		href="auth.php?act=register">Register</a>
+		href="auth.php?act=register">ADD</a>
 	<?php if (count($users) === 0) { ?>
 		<p class="border border-line bg-white px-4 py-8 text-center text-muted">
 			No users yet.
