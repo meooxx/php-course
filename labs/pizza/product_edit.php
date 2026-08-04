@@ -15,6 +15,21 @@ $validPic = '';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	if ($_POST['action'] == 'delete') {
+		$deleteId = $_POST['deleteId'] ?? null;
+		if (isset($deleteId)) {
+			$productModel = new Product();
+			try {
+				$productModel->deleteProduct($deleteId);
+				header("Location: status.php?success=1&message=Product deleted successfully.");
+				exit;
+			} catch (Exception $e) {
+				header("Location: status.php?success=0&message={$e->getMessage()}");
+				exit;
+			}
+		}
+		exit;
+	}
 	// Handle form submission
 	$name = trim($_POST['name'] ?? '');
 	$description = trim($_POST['description'] ?? '');
@@ -23,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$tag = trim($_POST['tag'] ?? '');
 	$price = (float) ($_POST['price'] ?? 0);
 	$pId = trim($_POST['targetId'] ?? '');
-	
 
 	if (empty($name) || empty($description) || $price <= 0 || $stock > 99 || $stock <= 0 || empty($pic)) {
 
@@ -93,6 +107,7 @@ require_once 'templates/nav.php';
 
 		<form class="rounded-md bg-white p-5" action="product_edit.php?id=<?php echo $productId; ?>" method="post">
 			<input type="hidden" name="targetId" value="<?php echo $productId; ?>" />
+			<input type="hidden" name="action" value="update" />
 			<div class="mb-3.5">
 				<label class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue"
 					for="name">Name</label>

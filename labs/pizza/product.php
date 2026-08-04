@@ -86,9 +86,14 @@ require_once 'templates/nav.php';
 							<td class="px-3 py-2">
 								<?php echo $product->stock; ?>
 							</td>
-							<td class="px-3 py-2">
+							<td class="px-3 py-2 flex gap-2">
 								<?php if ($showAdminFeatures): ?>
 									<a href="product_edit.php?id=<?php echo $product->id; ?>" class="text-dominos-blue underline-offset-2 hover:underline">Edit</a>
+									<form method="POST" action="product_edit.php">
+										<input type="hidden" name="deleteId" value="<?php echo $product->id; ?>" />
+										<input type="hidden" name="action"	 value="delete" />
+										<button type="submit" class="text-dominos-red underline-offset-2 hover:underline">Del</button>
+									</form>
 								<?php else: ?>
 									<span class="text-muted">#</span>
 								<?php endif; ?>

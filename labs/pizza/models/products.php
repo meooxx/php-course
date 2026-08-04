@@ -85,6 +85,21 @@ class Product
 		}
 		throw new Exception("Update product failed");
 	}
+	public function deleteProduct($id)
+	{
+		$auth = new Auth();
+		$user = $auth->getUser();
+		if (!$user || $user->role !== 'admin') {
+			throw new Exception('Only admin users can delete products.');
+		}
+		$query = "DELETE FROM {$this->table} WHERE id = :id";
+		$stmt = $this->conn->prepare($query);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		if ($stmt->execute()) {
+			return true;
+		}
+		throw new Exception("Delete product failed");
+	}
 }
 
 
