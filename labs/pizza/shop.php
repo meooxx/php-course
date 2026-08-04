@@ -32,6 +32,7 @@ try {
 				$name = $product->name;
 				$desc = isset($product->description) ? htmlspecialchars($product->description) : '';
 				$price = $product->price;
+				$stock = isset($product->stock) ? (int) $product->stock : 0;
 				$id = $product->id; ?>
 				<article class="flex flex-col overflow-hidden  rounded-lg border border-line bg-white">
 					<a class="aspect-square overflow-hidden bg-neutral-200" href="detail.php?id=<?php echo $id; ?>">
@@ -50,6 +51,9 @@ try {
 						</h3>
 						<p class="flex-1 text-sm text-muted">
 							<?php echo $desc; ?>
+						</p>
+						<p class="text-sm text-muted">
+							In stock: <?php echo $stock; ?>
 						</p>
 						<div class="mt-2 flex items-center justify-between gap-2">
 							<span class="font-display text-xl text-dominos-blue">

@@ -72,6 +72,7 @@ $des = $product->description ?? 'No description available.';
 $pic = str_starts_with($validPic, 'https://') ? $validPic : "images/{$validPic}";
 $price = $product->price ?? 'N/A';
 $tag = $product->tag ?? 'N/A';
+$stock = isset($product->stock) ? (int) $product->stock : 0;
 
 $pageTitle = "Doomino's | Product Detail";
 $pageDescription = "Details for {$name} pizza. Order online now!";
@@ -102,6 +103,7 @@ require_once 'templates/nav.php';
 				<?php echo htmlspecialchars($tag); ?>
 			</span>
 			<p class="font-display text-2xl text-dominos-blue">$<?php echo htmlspecialchars((string) $price); ?></p>
+			<p class="mb-2 text-sm text-muted">In stock: <?php echo $stock; ?></p>
 			<p class="mb-5 text-muted"><?php echo htmlspecialchars($des); ?></p>
 
 			<form action="detail.php?id=<?php echo $id; ?>" method="post">

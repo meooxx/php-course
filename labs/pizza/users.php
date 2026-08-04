@@ -1,6 +1,7 @@
 <?php
 require_once 'models/Auth.php';
 $auth = new Auth();
+$auth->requireAdmin();
 // main project requirement: only logged-in users can view products
 $isLoggedIn = $auth->isLoggedIn();
 $showAdminFeatures = $auth->isAdmin();
