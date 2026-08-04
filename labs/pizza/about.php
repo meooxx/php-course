@@ -1,4 +1,7 @@
-<?php $pageTitle = "Doomino's | About"; ?>
+<?php 
+	$pageTitle = "Doomino's | About";
+	$pageDescription = 'About the fictional school pizza brand';
+?>
 <?php require_once 'templates/header.php'; ?>
 <?php require_once 'templates/nav.php'; ?>
 

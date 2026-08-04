@@ -74,6 +74,7 @@ $price = $product->price ?? 'N/A';
 $tag = $product->tag ?? 'N/A';
 
 $pageTitle = "Doomino's | Product Detail";
+$pageDescription = "Details for {$name} pizza. Order online now!";
 require_once 'templates/header.php';
 require_once 'templates/nav.php';
 ?>

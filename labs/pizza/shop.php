@@ -1,8 +1,9 @@
-<?php require_once 'templates/header.php'; ?>
 <?php require_once 'models/products.php'; ?>
 <?php
 
 $productsList = [];
+$pageTitle = "Doomino's | Menu";
+$pageDescription = 'Browse our specialty pizzas and place your order online.';
 try {
 	$productModel = new Product();
 	$productsList = $productModel->getProducts();
@@ -12,7 +13,7 @@ try {
 }
 
 ?>
-
+<?php require_once 'templates/header.php'; ?>
 <?php require_once 'templates/nav.php'; ?>
 <main id="main" class="mx-auto max-w-[980px] px-4 pb-10">
 	<div class="pb-4 pt-7">

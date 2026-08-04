@@ -13,6 +13,7 @@ try {
 	exit;
 }
 $pageTitle = "Doomino's | Orders";
+$pageDescription = 'View your pizza orders or manage all orders if you are an admin.';
 require_once 'templates/header.php';
 require_once 'templates/nav.php';
 ?>

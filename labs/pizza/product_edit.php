@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 
 // require_once 
 $pageTitle = "Doomino's | " . (isset($productId) ? 'Edit' : 'Add') . " Product";
-$pageDescription = 'Product edit page for a dish';
+$pageDescription = 'Product add/edit page for a dish';
 
 require_once 'templates/header.php';
 require_once 'templates/nav.php';

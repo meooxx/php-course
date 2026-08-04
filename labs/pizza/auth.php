@@ -113,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	// convert to 'Login' | 'Register' for display
 	$pageStr = ucfirst($pageType);
 	$pageTitle = "Doomino's | $pageStr";
+	$pageDescription = $pageType === 'register' ? 'Create an account to place orders.' : ($pageType === 'login' ? 'Access your account to place orders.' : 'Update your profile information.');
 }
 
 ?>

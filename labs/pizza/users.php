@@ -11,6 +11,7 @@ require_once 'models/Auth.php';
 
 $users = [];
 $pageTitle = "Doomino's | User";
+$pageDescription = 'View and manage users in the system.';
 try {
 	$auth = new Auth();
 	$users = $auth->getUsers();

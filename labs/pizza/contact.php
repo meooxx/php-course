@@ -1,5 +1,6 @@
 <?php
 $pageTitle = "Doomino's | Contact";
+$pageDescription = 'Contact the fictional school pizza brand for inquiries or support.';
 require_once 'templates/header.php';
 require_once 'templates/nav.php';
 ?>

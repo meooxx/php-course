@@ -10,6 +10,7 @@ require_once 'models/products.php';
 
 $products = [];
 $pageTitle = "Doomino's | Products";
+$pageDescription = 'Browse available pizzas and other products.';
 try {
 	$productModel = new Product();
 	$products = $productModel->getProducts();
