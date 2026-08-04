@@ -71,7 +71,7 @@ class Order
 			p.pic as product_image
 			FROM {$this->table} o
 			LEFT JOIN products p ON p.id = o.product_id
-			WHERE (:role = 'admin') OR (:userId IS not NULL and o.user_id = :userId) or (:userId IS NULL and o.user_id IS NULL)
+			WHERE (:role = 'admin') OR (:userId IS not NULL and (o.user_id is null or o.user_id = :userId)) or (:userId IS NULL and o.user_id IS NULL)
 			ORDER BY o.created_at DESC, o.id DESC
 			LIMIT :limit offset :offset";
 
