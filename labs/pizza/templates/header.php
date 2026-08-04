@@ -9,6 +9,14 @@
 			name="description"
 			content="Doomino's — <?php echo isset($pageDescription) ? htmlspecialchars($pageDescription) : "Fictional school pizza site built with Tailwind CSS."; ?>"
 		/>
+		<meta
+			name="author"
+			content="Chyll"
+		/>
+		<meta
+			name="keywords"
+			content="Doomino's, pizza, online ordering, menu, delivery, carryout, school project"
+		/>
 		<title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : "Doomino's"; ?></title>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

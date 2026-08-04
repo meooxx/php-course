@@ -2,7 +2,10 @@
 $success = isset($_GET['success']) && (string) $_GET['success'] === '1';
 $msg = isset($_GET['message']) ? trim($_GET['message']) : '';
 $isSuccess = $success;
-
+$pageTitle = "Doomino's | Status";
+$pageDescription = $isSuccess
+	? 'Your request was completed successfully.'
+	: 'Something went wrong with your request.';
 ?>
 <?php
 require_once 'templates/header.php';

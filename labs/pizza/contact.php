@@ -22,8 +22,16 @@ require_once 'templates/nav.php';
 					Toronto, ON M5V 2T6
 				</li>
 				<li>
-					<span class="mb-1 block font-display uppercase tracking-wider">Phone </span>
-					(555) 123-4567
+					<span class="mb-1 block font-display uppercase tracking-wider">Phone</span>
+					<a class="text-white underline decoration-white/40 underline-offset-2 hover:text-white" href="tel:+15551234567">
+						(555) 123-4567
+					</a>
+				</li>
+				<li>
+					<span class="mb-1 block font-display uppercase tracking-wider">Email</span>
+					<a class="text-white underline decoration-white/40 underline-offset-2 hover:text-white" href="mailto:hello@doominos.lab">
+						hello@doominos.lab
+					</a>
 				</li>
 				<li>
 					<span class="mb-1 block font-display uppercase tracking-wider">Hours</span>
