@@ -1,7 +1,8 @@
 <?php
 require_once 'models/Auth.php';
 require_once 'models/products.php';
-new Auth()->requireAdmin();
+$auth = new Auth();
+$auth->requireAdmin();
 $productId = '';
 
 $name = '';

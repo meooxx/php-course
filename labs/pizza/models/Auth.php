@@ -62,7 +62,8 @@ class Auth
 	}
 	public function requireAdmin()
 	{
-		if (!$this->isLoggedIn() || $this->getUser()->role !== 'admin') {
+		$user = $this->getUser();
+		if (!$user || $user->role !== 'admin') {
 			header('Location: status.php?message=You must be logged in as an admin to access this page.');
 			exit;
 		}
