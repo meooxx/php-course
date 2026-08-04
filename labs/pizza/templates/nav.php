@@ -66,7 +66,7 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 				<!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
 				<!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
 				<el-dropdown class="inline-flex">
-					<button class="inline-flex py-1.5 ">
+					<button class="inline-flex py-1.5 relative">
 						<svg class="size-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
 							stroke-linecap="round">
 							<!-- Top Line -->
@@ -76,6 +76,14 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 							<!-- Bottom Line -->
 							<path d="M4 18h16" />
 						</svg>
+						<!-- lock icon for logged-out users -->
+						<?php if(!$isLoggedIn): ?>
+							<svg class="absolute right-[-5px] top-[5px] text-dominos-blue-deep text-muted" xmlns="http://w3.org" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M7 11V7a5 5 0 0 1 10 0v4" />
+								<rect x="5" y="11" width="14" height="10" rx="2" />
+							</svg>
+						<?php endif; ?>
 					</button>
 
 					<el-menu anchor="bottom end" popover
@@ -93,11 +101,25 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 									<span>
 										<?php echo htmlspecialchars($user->username); ?>
 									</span>
+									<!-- tool icon, indicating user is an admin -->
+									<?php if ($isAdmin): ?>
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="1em" height="1em">
+											<rect width="100" height="100" rx="16" ry="16" fill="rgb(0, 144, 226)" />
+
+											<g fill="#ffffff" transform="rotate(-45 50 50)">
+												<rect x="42" y="30" width="16" height="42" rx="4" ry="4" />
+												<path
+													d="M 50 18 C 39 18 35 28 35 34 C 35 44 43 48 50 48 C 57 48 65 44 65 34 C 65 28 61 18 50 18 Z" />
+												<path d="M 42 14 L 58 14 L 54 30 L 46 30 Z" fill="rgb(0, 144, 226)" />
+												<circle cx="50" cy="64" r="3.5" fill="rgb(0, 144, 226)" />
+											</g>
+										</svg>
+									<?php endif; ?>
 								</div>
 								<?php if ($isAdmin): ?>
 									<a href="product.php"
 										class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-dominos-blue   hover:text-dominos-blue-deep hover:outline-hidden">
-										Products
+										Inventory
 									</a>
 								<?php endif; ?>
 
