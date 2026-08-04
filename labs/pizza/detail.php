@@ -1,57 +1,12 @@
 <?php
 require_once 'models/products.php';
-require_once 'models/Order.php';
-
+require_once 'controllers/OrderController.php';
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : (isset($_POST['product_id']) ? (int) $_POST['product_id'] : 1);
 
-// Save order then redirect
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$success = false;
-	$orderModel = new Order();
-	$name = trim($_POST['name'] ?? '');
-	$email = trim($_POST['email'] ?? '');
-	$phone = trim($_POST['phone'] ?? '');
-	$productId = (int) ($_POST['product_id'] ?? 0);
-	$size = $_POST['size'] ?? 'medium';
-	$crust = $_POST['crust'] ?? 'hand_tossed';
-	$quantity = max(1, min(99, (int) ($_POST['quantity'] ?? 1)));
-	$fulfillment = $_POST['fulfillment'] ?? 'carryout';
-
-	if (empty($name) || empty($email) || empty($phone) || $productId <= 0) {
-		$ok = false;
-	} else {
-		$ok = true;
-	}
-
-	if ($ok) {
-		try {
-			$success = $orderModel->placeOrder([
-				'name' => $name,
-				'email' => $email,
-				'phone' => $phone,
-				'product_id' => $productId,
-				'size' => $size,
-				'crust' => $crust,
-				'quantity' => $quantity,
-				'fulfillment' => $fulfillment,
-			]);
-			if ($success) {
-				header('Location: status.php?success=1');
-				exit;
-			} else {
-				header('Location: status.php?success=0&message=Failed to place order.');
-				exit;
-			}
-		} catch (Exception $e) {
-			header("Location: status.php?success=0&message={$e->getMessage()}");
-			exit;
-		}
-
-
-
-	}
-	exit;
+	$orderController = new OrderController();
+	$orderController->placeFromPost($_POST);
 }
 
 $product = null;
