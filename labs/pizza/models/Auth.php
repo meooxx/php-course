@@ -35,6 +35,11 @@ class Auth
 		}
 		return null;
 	}
+	public function isAdmin(): bool
+	{
+		$user = $this->getUser();
+		return $user && $user->role === 'admin';
+	}
 	public function requireAdmin()
 	{
 		if (!$this->isLoggedIn() || $this->getUser()->role !== 'admin') {

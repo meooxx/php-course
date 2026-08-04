@@ -56,6 +56,10 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'orders.php'); ?>"
 							href="orders.php">Orders</a>
 					</li>
+					<li>
+						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'product.php'); ?>"
+							href="product.php">Inventory</a>
+					</li>
 				</ul>
 			</nav>
 
@@ -77,9 +81,10 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 							<path d="M4 18h16" />
 						</svg>
 						<!-- lock icon for logged-out users -->
-						<?php if(!$isLoggedIn): ?>
-							<svg class="absolute right-[-5px] top-[5px] text-dominos-blue-deep text-muted" xmlns="http://w3.org" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor"
-								stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<?php if (!$isLoggedIn): ?>
+							<svg class="absolute right-[-5px] top-[5px] text-dominos-blue-deep text-muted" xmlns="http://w3.org"
+								viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2"
+								stroke-linecap="round" stroke-linejoin="round">
 								<path d="M7 11V7a5 5 0 0 1 10 0v4" />
 								<rect x="5" y="11" width="14" height="10" rx="2" />
 							</svg>
@@ -116,12 +121,6 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 										</svg>
 									<?php endif; ?>
 								</div>
-								<?php if ($isAdmin): ?>
-									<a href="product.php"
-										class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-dominos-blue   hover:text-dominos-blue-deep hover:outline-hidden">
-										Inventory
-									</a>
-								<?php endif; ?>
 
 								<a class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-red-600 hover:text-dominos-red hover:outline-hidden"
 									href="auth.php?action=logout">

@@ -61,6 +61,9 @@ class Order
 	{
 		$auth = new Auth();
 		$user = $auth->getUser();
+		if(!$auth->isLoggedIn()) {
+			return [];
+		}
 		$userId = $user ? $user->id : null;
 		$role = $user ? $user->role : null;
 		$query = "SELECT o.*, 

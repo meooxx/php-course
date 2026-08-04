@@ -36,10 +36,13 @@ class Product
 	private function validateProductData($name, $description, $price, $image, $stock, $tag)
 	{
 		$auth = new Auth();
-		$user = $auth->getUser();
-		if (!$user || $user->role !== 'admin') {
-			throw new Exception('Only admin users can add or update products.');
+		$isLoggedIn = $auth->isLoggedIn();
+		if ($isLoggedIn) {
+			throw new Exception('Only logged-in users can add or update products.');
 		}
+		// if (!$user || $user->role !== 'admin') {
+		// 	throw new Exception('Only admin users can add or update products.');
+		// }
 		if (!isset($name) || !isset($description) || !isset($price) || !isset($image)) {
 			throw new Exception("All product fields are required" . urlencode(" Name: $name, Description: $description, Price: $price, Stock: $stock, Pic: $image"));
 		}
@@ -60,7 +63,7 @@ class Product
 		$stmt->bindValue(':description', $description);
 		$stmt->bindValue(':price', round($price, 2));
 		$stmt->bindValue(':pic', $image);
-		$stmt->bindValue(':stock', (int)$stock);
+		$stmt->bindValue(':stock', (int) $stock);
 		$stmt->bindValue(':tag', $tag);
 		if ($stmt->execute()) {
 			return $this->conn->lastInsertId();

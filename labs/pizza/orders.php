@@ -5,6 +5,8 @@ $orders = [];
 
 try {
 	$orderModel = new Order();
+	// Fetch orders for the logged-in user or all orders if the user is an admin
+	// return empy array if not logged in
 	$orders = $orderModel->getOrders();
 } catch (Exception $e) {
 	header("Location: status.php?success=0&message={$e->getMessage()}");
