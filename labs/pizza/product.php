@@ -54,14 +54,15 @@ require_once 'templates/nav.php';
 				if ($stock <= 0) {
 					$statusLabel = 'Sold out';
 					$statusClass = 'bg-dominos-red text-white';
-
+					$qtyClass = 'text-dominos-red';
 				} elseif ($stock <= 10) {
 					$statusLabel = 'Low';
 					$statusClass = 'bg-amber-500 text-white';
-
+					$qtyClass = 'text-amber-600';
 				} else {
 					$statusLabel = 'In stock';
 					$statusClass = 'bg-emerald-600 text-white';
+					$qtyClass = 'text-emerald-700';
 				}
 				?>
 				<li class="rounded-sm overflow-hidden border border-line bg-white">
@@ -69,10 +70,6 @@ require_once 'templates/nav.php';
 						<div class="relative h-36 shrink-0 overflow-hidden bg-neutral-200 sm:h-auto sm:w-36 md:w-44">
 							<img class="h-full w-full object-cover" src="<?php echo htmlspecialchars($imgUrl); ?>"
 								alt="<?php echo htmlspecialchars($product->name); ?>" width="400" height="400" />
-							<span
-								class="absolute left-2 top-2 rounded-sm <?php echo $statusClass; ?> px-1.5 py-0.5 font-display text-[10px] uppercase tracking-wider">
-								<?php echo $statusLabel; ?>
-							</span>
 						</div>
 
 						<div class="flex min-w-0 flex-1 flex-col gap-2 p-3.5 sm:p-4">
@@ -95,12 +92,13 @@ require_once 'templates/nav.php';
 							</p>
 
 							<div class="mt-auto flex flex-wrap items-end justify-between gap-3 pt-1">
-								<div class="min-w-[140px] flex-1">
-									<div class="mb-1 flex items-center justify gap-2 text-xs">
-										<span class="text-muted">Stock</span>
-										<span class="font-display tracking-wide text-ink"><?php echo $stock; ?></span>
-									</div>
-
+								<div class="flex items-center gap-2">
+									<span class="rounded-sm <?php echo $statusClass; ?> px-2 py-0.5 font-display text-[10px] uppercase tracking-wider">
+										<?php echo $statusLabel; ?>
+									</span>
+									<span class="font-display text-sm tracking-wide <?php echo $qtyClass; ?>">
+										<?php echo $stock <= 0 ? '0 left' : $stock . ' left'; ?>
+									</span>
 								</div>
 
 								<?php if ($showAdminFeatures): ?>
