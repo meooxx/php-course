@@ -56,13 +56,23 @@ class Auth
 	}
 	public function isAdmin(): bool
 	{
-		$user = $this->getUser();
-		return $user && $user->role === 'admin';
+		if (!$this->isLoggedIn()) {
+			return false;
+		}
+
+		$database = new Database();
+		$conn = $database->getInstance();
+		$query = "SELECT user_id FROM pizza_admins WHERE user_id = :user_id LIMIT 1";
+		$stmt = $conn->prepare($query);
+		$stmt->bindValue(':user_id', Session::get('user_id'), PDO::PARAM_INT);
+		if ($stmt->execute()) {
+			return $stmt->fetch() !== false;
+		}
+		return false;
 	}
 	public function requireAdmin()
 	{
-		$user = $this->getUser();
-		if (!$user || $user->role !== 'admin') {
+		if (!$this->isAdmin()) {
 			header('Location: status.php?message=You must be logged in as an admin to access this page.');
 			exit;
 		}
@@ -84,7 +94,6 @@ class Auth
 		$stmt->bindParam(':username', $username);
 
 		if ($stmt->execute()) {
-			$stmt->debugDumpParams();
 			$user = $stmt->fetch();
 			if ($user && password_verify($password, $user->password)) {
 				Session::set('user_id', $user->id);
@@ -104,22 +113,21 @@ class Auth
 	public function register($username, $password, $confirmPassword, $email, $role): bool
 	{
 		if (!isset($username) || !isset($password) || !isset($email)) {
+			throw new Exception("Username, password and email are required");
+		}
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			throw new Exception("Invalid email format");
+		}
+		if ($password !== $confirmPassword) {
+			throw new Exception("Passwords do not match");
+		}
 
-			if (!isset($username)) {
-				throw new Exception("Username is required");
-			}
-			if (!isset($password)) {
-				throw new Exception("Password is required");
-			}
-			if (!isset($email)) {
-				throw new Exception("Email is required");
-			}
-			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-				throw new Exception("Invalid email format");
-			}
-			if ($password !== $confirmPassword) {
-				throw new Exception("Passwords do not match");
-			}
+		$normalizedRole = strtolower(trim((string) $role));
+		if (!in_array($normalizedRole, ['user', 'admin'], true)) {
+			$normalizedRole = 'user';
+		}
+		if ($normalizedRole === 'admin' && !$this->isAdmin()) {
+			throw new Exception("Only admin users can create another admin");
 		}
 		$database = new Database();
 		$conn = $database->getInstance();
@@ -152,9 +160,23 @@ class Auth
 		$stmt->bindParam(':username', $username);
 		$stmt->bindParam(':password', $hashedPassword);
 		$stmt->bindParam(':email', $sanitizedEmail);
-		$stmt->bindParam(':role', $role);
+		$stmt->bindParam(':role', $normalizedRole);
 		if ($stmt->execute()) {
 			$userId = $conn->lastInsertId();
+			// If the new account is created as an admin, also register it in pizza_admins.
+			if ($normalizedRole === 'admin') {
+				$checkAdminQuery = "SELECT user_id FROM pizza_admins WHERE user_id = :user_id LIMIT 1";
+				$checkAdminStmt = $conn->prepare($checkAdminQuery);
+				$checkAdminStmt->bindValue(':user_id', (int) $userId, PDO::PARAM_INT);
+				$checkAdminStmt->execute();
+
+				if ($checkAdminStmt->fetch() === false) {
+					$adminQuery = "INSERT INTO pizza_admins (user_id) VALUES (:user_id)";
+					$adminStmt = $conn->prepare($adminQuery);
+					$adminStmt->bindValue(':user_id', (int) $userId, PDO::PARAM_INT);
+					$adminStmt->execute();
+				}
+			}
 			Session::set('user_id', $userId);
 			return true;
 		}
@@ -230,6 +252,31 @@ class Auth
 		$stmt->bindParam(':email', $email);
 		$stmt->bindParam(':role', $role);
 		if ($stmt->execute()) {
+			$normalizedRole = strtolower(trim((string) $role));
+			if ($normalizedRole !== 'admin') {
+				$normalizedRole = 'user';
+			}
+
+			// Keep pizza_admins in sync with the chosen role.
+			if ($normalizedRole === 'admin') {
+				$checkAdminQuery = "SELECT user_id FROM pizza_admins WHERE user_id = :user_id LIMIT 1";
+				$checkAdminStmt = $conn->prepare($checkAdminQuery);
+				$checkAdminStmt->bindValue(':user_id', (int) $targetUserId, PDO::PARAM_INT);
+				$checkAdminStmt->execute();
+
+				if ($checkAdminStmt->fetch() === false) {
+					$adminQuery = "INSERT INTO pizza_admins (user_id) VALUES (:user_id)";
+					$adminStmt = $conn->prepare($adminQuery);
+					$adminStmt->bindValue(':user_id', (int) $targetUserId, PDO::PARAM_INT);
+					$adminStmt->execute();
+				}
+			} else {
+				$adminQuery = "DELETE FROM pizza_admins WHERE user_id = :user_id";
+				$adminStmt = $conn->prepare($adminQuery);
+				$adminStmt->bindValue(':user_id', (int) $targetUserId, PDO::PARAM_INT);
+				$adminStmt->execute();
+			}
+
 			return true;
 		}
 		throw new Exception("Update user failed");

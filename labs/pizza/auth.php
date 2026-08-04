@@ -116,6 +116,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	$pageDescription = $pageType === 'register' ? 'Create an account to place orders.' : ($pageType === 'login' ? 'Access your account to place orders.' : 'Update your profile information.');
 }
 
+$viewerAuth = new Auth();
+$canAssignAdminRole = $viewerAuth->isAdmin();
+
 ?>
 
 <?php require_once 'templates/header.php'; ?>
@@ -144,19 +147,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 					class="w-full rounded-sm border border-line bg-white px-3 py-2"
 					value="<?php echo htmlspecialchars($email ?? ''); ?>" />
 			</div>
-			<div class="mb-3.5 flex flex-wrap gap-2">
-				<label class="option-chip rounded-sm cursor-pointer border-2 border-line  px-3 py-1.5 text-sm font-bold">
-					<input type="radio" name="role" value="admin" />
-					<span>Admin</span>
-				</label>
-				<label class="option-chip rounded-sm cursor-pointer border-2 border-line px-3 py-1.5 text-sm font-bold">
-					<input type="radio" name="role" value="user" checked />
-					<span>User</span>
-				</label>
-
-
-
-			</div>
+			<?php if ($canAssignAdminRole): ?>
+				<div class="mb-3.5 flex flex-wrap gap-2">
+					<label class="option-chip rounded-sm cursor-pointer border-2 border-line  px-3 py-1.5 text-sm font-bold">
+						<input type="radio" name="role" value="admin" />
+						<span>Admin</span>
+					</label>
+					<label class="option-chip rounded-sm cursor-pointer border-2 border-line px-3 py-1.5 text-sm font-bold">
+						<input type="radio" name="role" value="user" checked />
+						<span>User</span>
+					</label>
+				</div>
+			<?php else: ?>
+				<input type="hidden" name="role" value="user" />
+			<?php endif; ?>
 			<div>
 				<label for="password"
 					class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue">Password</label>

@@ -8,7 +8,7 @@ $isLoggedIn = $auth->isLoggedIn();
 try {
 	$user = $auth->getUser();
 	error_log("User: " . print_r($user, true));
-	$isAdmin = $user && $user->role === 'admin';
+	$isAdmin = $auth->isAdmin();
 
 } catch (Exception $e) {
 	// fixed a bug where if the user was deleted, 

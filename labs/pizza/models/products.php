@@ -1,5 +1,6 @@
 <?php
 require_once 'models/Database.php';
+require_once 'models/Auth.php';
 class Product
 {
 	private PDO $conn;
@@ -36,8 +37,7 @@ class Product
 	private function validateProductData($name, $description, $price, $image, $stock, $tag)
 	{
 		$auth = new Auth();
-		$user = $auth->getUser();
-		if (!$user || $user->role !== 'admin') {
+		if (!$auth->isAdmin()) {
 			throw new Exception('Only admin users can add or update products.');
 		}
 		if (!isset($name) || !isset($description) || !isset($price) || !isset($image)) {
@@ -88,8 +88,7 @@ class Product
 	public function deleteProduct($id)
 	{
 		$auth = new Auth();
-		$user = $auth->getUser();
-		if (!$user || $user->role !== 'admin') {
+		if (!$auth->isAdmin()) {
 			throw new Exception('Only admin users can delete products.');
 		}
 		$query = "DELETE FROM {$this->table} WHERE id = :id";
