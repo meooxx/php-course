@@ -36,13 +36,10 @@ class Product
 	private function validateProductData($name, $description, $price, $image, $stock, $tag)
 	{
 		$auth = new Auth();
-		$isLoggedIn = $auth->isLoggedIn();
-		if ($isLoggedIn) {
-			throw new Exception('Only logged-in users can add or update products.');
+		$user = $auth->getUser();
+		if (!$user || $user->role !== 'admin') {
+			throw new Exception('Only admin users can add or update products.');
 		}
-		// if (!$user || $user->role !== 'admin') {
-		// 	throw new Exception('Only admin users can add or update products.');
-		// }
 		if (!isset($name) || !isset($description) || !isset($price) || !isset($image)) {
 			throw new Exception("All product fields are required" . urlencode(" Name: $name, Description: $description, Price: $price, Stock: $stock, Pic: $image"));
 		}

@@ -18,9 +18,9 @@ class Order
 		$auth = new Auth();
 		$user = $auth->getUser();
 		$userId = $user ? $user->id : null;
-		if(!isset($userId)) {
-			throw new Exception('User must be logged in to place an order.');
-		}
+		// if(!isset($userId)) {
+		// 	throw new Exception('User must be logged in to place an order.');
+		// }
 		$this->conn->beginTransaction();
 		// Update stock first
 		$updateStock = "UPDATE products SET stock = stock - :quantity WHERE id = :product_id AND stock >= :quantity";
@@ -61,9 +61,9 @@ class Order
 	{
 		$auth = new Auth();
 		$user = $auth->getUser();
-		if(!$auth->isLoggedIn()) {
-			return [];
-		}
+		// if(!$auth->isLoggedIn()) {
+		// 	return [];
+		// }
 		$userId = $user ? $user->id : null;
 		$role = $user ? $user->role : null;
 		$query = "SELECT o.*, 
@@ -71,7 +71,7 @@ class Order
 			p.pic as product_image
 			FROM {$this->table} o
 			LEFT JOIN products p ON p.id = o.product_id
-			WHERE :role = 'admin' OR (:userId IS not NULL and o.user_id = :userId) 
+			WHERE (:role = 'admin') OR (:userId IS not NULL and o.user_id = :userId) or (:userId IS NULL and o.user_id IS NULL)
 			ORDER BY o.created_at DESC, o.id DESC
 			LIMIT :limit offset :offset";
 

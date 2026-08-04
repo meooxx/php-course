@@ -2,13 +2,15 @@
 require_once 'models/Auth.php';
 require_once 'models/products.php';
 new Auth()->requireAdmin();
-$productId = isset($_GET['id']) ? (int) $_GET['id'] : null;
+$productId = '';
+
 $name = '';
 $des = '';
 $pic = '';
 $price = '';
 $tag = '';
 $stock = '';
+$validPic = '';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$pic = trim($_POST['pic'] ?? '');
 	$tag = trim($_POST['tag'] ?? '');
 	$price = (float) ($_POST['price'] ?? 0);
+	$pId = trim($_POST['targetId'] ?? '');
+	
 
 	if (empty($name) || empty($description) || $price <= 0 || $stock > 99 || $stock <= 0 || empty($pic)) {
 
@@ -29,14 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	try {
 		$productModel = new Product();
 
-		if (isset($productId)) {
+		if (!empty($pId)) {
 			// Update existing product
-			$productModel->updateProduct($productId, $name, $description, $price, $pic, $stock, $tag);
+			$productModel->updateProduct($pId, $name, $description, $price, $pic, $stock, $tag);
 			header('Location: status.php?success=1&message=Product updated successfully.');
 			exit;
 		} else {
 			// Add new product
-			$productId = $productModel->newProduct($name, $description, $price, $pic, $stock, $tag);
+			$productModel->newProduct($name, $description, $price, $pic, $stock, $tag);
 			header('Location: status.php?success=1&message=Product added successfully.');
 			exit;
 		}
@@ -47,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 	$product = null;
+	$productId = $_GET['id'];
 	try {
 		$productModel = new Product();
 		$product = $productModel->getDetail((int) $productId);
@@ -68,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 
 // require_once 
 $pageTitle = "Doomino's | " . (isset($productId) ? 'Edit' : 'Add') . " Product";
+$pageDescription = 'Product edit page for a dish';
 
 require_once 'templates/header.php';
 require_once 'templates/nav.php';
@@ -78,14 +84,14 @@ require_once 'templates/nav.php';
 <main id="main" class="mx-auto max-w-[980px] px-4 pb-10">
 	<div class="pb-4 pt-7">
 		<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-blue md:text-4xl">
-			<?php echo isset($productId) ? 'Edit' : 'Add'; ?> product item
+			<?php echo empty($productId) ? 'Edit' : 'Add'; ?> product item
 		</h1>
 	</div>
 
 	<section class="grid gap-5 pb-6 md:grid-cols-[1.2fr_0.8fr]">
 
 		<form class="rounded-md bg-white p-5" action="product_edit.php?id=<?php echo $productId; ?>" method="post">
-			<input type="hidden" name="productId" value="<?php echo $productId; ?>" />
+			<input type="hidden" name="targetId" value="<?php echo $productId; ?>" />
 			<div class="mb-3.5">
 				<label class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue"
 					for="name">Name</label>
@@ -144,7 +150,7 @@ require_once 'templates/nav.php';
 			</div>
 
 			<button
-				class="rounded-sm bg-dominos-blue px-4 py-1.5 font-display uppercase tracking-wider text-white hover:bg-dominos-blue-deep"
+				class="rounded-sm mt-2 bg-dominos-blue px-4 py-1.5 font-display uppercase tracking-wider text-white hover:bg-dominos-blue-deep"
 				type="submit">
 				Submit
 			</button>

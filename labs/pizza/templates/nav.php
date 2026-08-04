@@ -4,14 +4,21 @@ $current = $_SERVER['REQUEST_URI'] ? $_SERVER['REQUEST_URI'] : '';
 $auth = new Auth();
 
 $isLoggedIn = $auth->isLoggedIn();
+
 try {
 	$user = $auth->getUser();
 	error_log("User: " . print_r($user, true));
-	$isAdmin = $isLoggedIn && $user->role === 'admin';
+	$isAdmin = $user && $user->role === 'admin';
 
 } catch (Exception $e) {
-	header("Location: status.php?message=" . $e->getMessage());
-	exit;
+	// fixed a bug where if the user was deleted, 
+	// the nav bar would throw an error
+	// and it would redirect to status page forever. 
+	// Prevent infinite redirect loop
+	if (!str_contains($_SERVER['REQUEST_URI'], 'status.php')) {
+		header("Location: status.php?message=" . $e->getMessage());
+		exit;
+	}
 }
 
 function getActiveClass($current, $path, bool $ishome = false): string
@@ -24,7 +31,7 @@ function getActiveClass($current, $path, bool $ishome = false): string
 	return str_contains($current, $path) ? $active : $normal;
 }
 
-$navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text-xs uppercase tracking-widest no-underline px-3 py-2 text-sm';
+$navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text-sm uppercase tracking-widest no-underline px-2 py-2 text-xs';
 ?>
 
 <body class="min-w-[320px] overflow-x-auto bg-cream font-body text-ink antialiased">
@@ -59,6 +66,9 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 					<li>
 						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'product.php'); ?>"
 							href="product.php">Inventory</a>
+					</li>
+					<li>
+						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'users.php'); ?>" href="users.php">Users</a>
 					</li>
 				</ul>
 			</nav>
@@ -104,7 +114,7 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 											d="M10 9.25c-2.27 0-2.73-3.44-2.73-3.44C7 4.02 7.82 2 9.97 2c2.16 0 2.98 2.02 2.71 3.81c0 0-.41 3.44-2.68 3.44m0 2.57L12.72 10c2.39 0 4.52 2.33 4.52 4.53v2.49s-3.65 1.13-7.24 1.13c-3.65 0-7.24-1.13-7.24-1.13v-2.49c0-2.25 1.94-4.48 4.47-4.48z" />
 									</svg>
 									<span>
-										<?php echo htmlspecialchars($user->username); ?>
+										<?php echo htmlspecialchars(isset($user) ? $user->username : ''); ?>
 									</span>
 									<!-- tool icon, indicating user is an admin -->
 									<?php if ($isAdmin): ?>
@@ -123,16 +133,16 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 								</div>
 
 								<a class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-red-600 hover:text-dominos-red hover:outline-hidden"
-									href="auth.php?action=logout">
+									href="auth.php?act=logout">
 									logout
 								</a>
 							<?php else: ?>
 								<a class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-dominos-blue   hover:text-dominos-blue-deep hover:outline-hidden"
-									href="auth.php?action=login">
+									href="auth.php?act=login">
 									Login
 								</a>
 								<a class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-dominos-blue   hover:text-dominos-blue-deep hover:outline-hidden"
-									href="auth.php?action=register">
+									href="auth.php?act=register">
 									Register
 								</a>
 							<?php endif; ?>
