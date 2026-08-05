@@ -1,17 +1,17 @@
-/* Domino's Canada theme for Tailwind Play CDN */
 tailwind.config = {
   theme: {
     extend: {
       colors: {
-        "dominos-blue": "rgb(0, 144, 226)",
-        "dominos-blue-deep": "rgb(12, 89, 125)",
-        "dominos-red": "rgb(227, 24, 55)",
-      
-        cream: "#f7f4ef",
-        panel: "#f3efe8",
-        ink: "#333333",
+        "dominos-blue": "#0a0a0a",
+        "dominos-blue-deep": "#000000",
+        "dominos-red": "#00b4d8",
+        "dominos-red-deep": "#0090ad",
+        "dominos-red-soft": "#d6f4fb",
+        cream: "#f2f2f2",
+        panel: "#e8e8e8",
+        ink: "#111111",
         muted: "#666666",
-        line: "#d5d0c8",
+        line: "#d0d0d0",
       },
       fontFamily: {
         display: ["Oswald", "Arial Narrow", "sans-serif"],

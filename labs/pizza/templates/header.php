@@ -15,7 +15,7 @@
 		/>
 		<meta
 			name="keywords"
-			content="Doomino's, pizza, online ordering, menu, delivery, carryout, school project"
+			content="Doomino's, pizza, inventory, menu, PHP school project"
 		/>
 		<title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : "Doomino's"; ?></title>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />

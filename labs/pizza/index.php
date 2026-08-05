@@ -1,54 +1,43 @@
-<?php 
-$pageTitle = "Doomino's | Home";
-$pageDescription = "Doomino's is a fictional pizza brand for academic purposes.";
+<?php
+$pageTitle = "Inventory";
+$pageDescription = 'Pizza inventory system — manage stock and users with PHP and MySQL.';
+
+require_once 'templates/header.php';
+require_once 'templates/nav.php';
 ?>
-<?php require_once 'templates/header.php'; ?>
-<?php require_once 'templates/nav.php'; ?>
-	<main id="main" class="bg-cream">
-		<section class="mx-auto max-w-[1100px] px-4 py-6" aria-label="Deals and promos">
-			<div class="grid gap-3 lg:grid-cols-[1.2fr_1fr] lg:grid-rows-2">
-				<a class="group relative block overflow-hidden rounded-sm border border-line bg-white shadow-sm lg:row-span-2"
-					href="shop.php">
-					<img class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.015]"
-						src="images/promo-best-deal.jpg" width="1156" height="1040"
-						alt="Best Deal Ever — any pizza, any toppings" />
-				</a>
-
-				<a class="group relative block overflow-hidden rounded-sm border border-line bg-white shadow-sm"
-					href="shop.php">
-					<img class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-						src="images/promo-dip-days.jpg" width="684" height="510" alt="$1 Dip Days — limited time" />
-				</a>
-
-				<a class="group relative block overflow-hidden rounded-sm border border-line bg-white shadow-sm"
-					href="shop.php">
-					<img class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-						src="images/promo-mix-match.jpg" width="684" height="510" alt="Mix and match — choose any 2 or more" />
-				</a>
+<main id="main" class="bg-cream">
+	<section class="relative flex min-h-[calc(100vh-7.5rem)] items-end overflow-hidden bg-dominos-blue text-white"
+		aria-label="Homepage hero">
+		<div class="absolute inset-0" aria-hidden="true">
+			<video class="motion-safe-video h-full w-full object-cover contrast-[1.1] saturate-[1.15]" autoplay muted loop
+				playsinline poster="images/promo-best-deal.jpg">
+				<source src="videos/hero.mp4" type="video/mp4" />
+			</video>
+			<img class="js-hero-fallback absolute inset-0 hidden h-full w-full object-cover" src="images/promo-best-deal.jpg"
+				width="1280" height="720" alt="" />
+			<div
+				class="absolute inset-0 bg-gradient-to-b from-dominos-blue-deep/55 via-dominos-blue-deep/70 to-dominos-blue-deep">
 			</div>
-
-			<a class="group relative mt-3 block overflow-hidden rounded-sm border border-line bg-white shadow-sm"
-				href="shop.php">
-				<img class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-					src="images/pepsi-bottle.jpg" width="1200" height="750" alt="Pepsi cola bottles" />
-				<div class="absolute inset-0 bg-gradient-to-r from-dominos-blue/85 via-dominos-blue/55 to-transparent"></div>
-				<div class="relative z-10 flex min-h-[160px] flex-col justify-center px-6 py-8 sm:min-h-[180px] sm:px-10">
-					<p class="font-display text-sm uppercase tracking-[0.2em] text-white/85">Add a drink</p>
-					<p class="mt-1 font-display text-3xl uppercase tracking-wide text-white sm:text-4xl">
-						百事可乐 · Pepsi
-					</p>
-					<p class="mt-2 max-w-md text-sm text-white/90">Ice-cold Pepsi — pair with any pizza order.</p>
-					<span class="promo-btn mt-4 w-fit">Order Now</span>
-				</div>
-			</a>
-
-			<p class="mt-4 text-center text-xs text-muted">
-				Promo images from
-				<a class="text-dominos-blue underline-offset-2 hover:underline" href="https://www.dominos.ca/en/"
-					rel="noopener noreferrer" target="_blank">dominos.ca</a>
-				for academic layout practice · Doomino's is a fictional school brand
+			<div class="absolute inset-0 bg-gradient-to-r from-dominos-blue-deep via-dominos-blue-deep/50 to-transparent">
+			</div>
+			<div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-dominos-red to-transparent">
+			</div>
+		</div>
+		<div class="relative z-[1] mx-auto w-full max-w-[980px] px-4 pb-14 pt-12">
+			<h1 class="font-display text-[clamp(3.2rem,12vw,7rem)] uppercase leading-none tracking-[0.06em] text-white">
+				Inventory
+			</h1>
+			<p class="mt-4 max-w-md border-dominos-red pl-4 text-base text-white/85">
+				Stock, products, and users — PHP inventory control.
 			</p>
-		</section>
-	</main>
+			<div class="mt-6 flex flex-wrap gap-3">
+				<a class="inline-block rounded-sm bg-dominos-red px-5 py-2.5 font-display text-sm uppercase tracking-wider text-white no-underline transition hover:-translate-y-px hover:bg-dominos-red-deep"
+					href="product.php">Open inventory</a>
+				<a class="inline-block rounded-sm border border-white/50 px-5 py-2.5 font-display text-sm uppercase tracking-wider text-white no-underline transition hover:border-white hover:bg-white/10"
+					href="shop.php">Browse catalog</a>
+			</div>
+		</div>
+	</section>
+</main>
 
-	<?php require_once 'templates/footer.php'; ?>
+<?php require_once 'templates/footer.php'; ?>
