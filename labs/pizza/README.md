@@ -19,7 +19,7 @@ Current palette (black + cyan):
 
 Fonts: Oswald (display) + Nunito Sans (body). 
 
-Homepage: video-only hero; brand title **Inventory**. Hero video: `videos/hero.mp4`.
+Homepage: video header + low/out-of-stock **alerts** board. Hero video: `videos/hero.mp4`.
 
 ## Project goal
 

@@ -59,8 +59,8 @@ require_once 'templates/nav.php';
 				<h2 class="font-display text-2xl uppercase tracking-wide text-dominos-blue">Out of stock</h2>
 				<p class="mt-1 text-base text-muted">These items have 0 units left and need restocking.</p>
 			</div>
-			<span class="bg-dominos-blue px-3 py-1.5 font-display text-sm uppercase tracking-wider text-white">
-				<?php echo $outCount; ?> item<?php echo $outCount === 1 ? '' : 's'; ?>
+			<span class="rounded-sm bg-dominos-blue px-3 py-1.5 font-display text-sm uppercase tracking-wider text-white">
+				<?php echo $outCount; ?> items
 			</span>
 		</div>
 
@@ -74,25 +74,26 @@ require_once 'templates/nav.php';
 			<ul class="space-y-3">
 				<?php foreach ($outOfStock as $item): ?>
 					<li
-						class="flex flex-col gap-3 border border-line bg-white px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+						class="rounded-sm flex flex-col gap-3 border border-line bg-white px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
 						<div class="min-w-0 flex items-start gap-3 sm:items-center">
-							<span class="shrink-0 bg-dominos-blue px-2 py-1 font-display text-xs uppercase tracking-wider text-white">
+							<span
+								class="rounded-sm shrink-0 bg-dominos-blue px-2 py-1 font-display text-xs uppercase tracking-wider text-white">
 								Out
 							</span>
 							<div class="min-w-0">
 								<a class="block font-display text-lg uppercase tracking-wide text-dominos-blue no-underline hover:text-dominos-red"
-									href="detail.php?id=<?php echo (int) $item->id; ?>">
+									href="detail.php?id=<?php echo $item->id; ?>">
 									<?php echo htmlspecialchars($item->name); ?>
 								</a>
-								<p class="mt-0.5 text-sm text-muted">Product ID #<?php echo (int) $item->id; ?> · Qty 0</p>
+								<p class="mt-0.5 text-sm text-muted">Product ID #<?php echo $item->id; ?> · Qty 0</p>
 							</div>
 						</div>
 						<div class="flex shrink-0 gap-2 sm:pl-4">
-							<a class="inline-block border border-dominos-red px-3 py-1.5 font-display text-sm uppercase tracking-wider text-dominos-red no-underline hover:bg-dominos-red-soft"
-								href="detail.php?id=<?php echo (int) $item->id; ?>">View</a>
+							<a class="rounded-sm inline-block border border-dominos-red px-3 py-1.5 font-display text-sm uppercase tracking-wider text-dominos-red no-underline hover:bg-dominos-red-soft"
+								href="detail.php?id=<?php echo $item->id; ?>">View</a>
 							<?php if ($isAdmin): ?>
-								<a class="inline-block bg-dominos-blue px-3 py-1.5 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
-									href="product_edit.php?id=<?php echo (int) $item->id; ?>">Restock</a>
+								<a class="rounded-sm inline-block bg-dominos-blue px-3 py-1.5 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
+									href="product_edit.php?id=<?php echo $item->id; ?>">Restock</a>
 							<?php endif; ?>
 						</div>
 					</li>
