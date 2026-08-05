@@ -35,43 +35,22 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block px-2 py-2 font-di
 <body class="min-w-[320px] overflow-x-auto bg-cream font-body text-ink antialiased">
 	<header class="bg-dominos-blue text-white">
 		<div class="border-b border-white/20">
-			<?php if (!$isLoggedIn): ?>
-				<form method="POST" action="auth.php" class="grid w-full grid-cols-1 gap-2 px-2 py-2 md:grid-cols-[8fr_2fr]">
-					<input type="hidden" name="action" value="login" />
-					<div class="grid grid-cols-2 gap-2">
-						<div class="md:flex-1">
-							<label class="sr-only" for="header-username">Username</label>
-							<input id="header-username" name="username" type="text" required placeholder="Username"
-								class="w-full rounded-sm border border-line bg-white px-3 py-2 text-sm text-ink outline-none focus:border-dominos-blue focus:ring-1 focus:ring-dominos-blue" />
-						</div>
-						<div class="md:flex-1">
-							<label class="sr-only" for="header-password">Password</label>
-							<input id="header-password" name="password" type="password" required placeholder="Password"
-								class="w-full rounded-sm border border-line bg-white px-3 py-2 text-sm text-ink outline-none focus:border-dominos-blue focus:ring-1 focus:ring-dominos-blue" />
-						</div>
-					</div>
-					<div class="flex gap-2 md:shrink-0">
-						<button type="submit"
-							class="w-full rounded-sm bg-white px-4 py-2 font-display text-xs uppercase tracking-wider text-dominos-blue hover:bg-panel md:w-28">
-							Login
-						</button>
-						<a class="w-full rounded-sm bg-white px-4 py-2 text-center font-display text-xs uppercase tracking-wider text-dominos-blue no-underline hover:bg-panel md:w-28"
-							href="auth.php?act=register">Register</a>
-					</div>
-				</form>
-			<?php else: ?>
+			<?php if ($isLoggedIn): ?>
 				<div class="flex flex-col gap-2 px-2 py-2 sm:flex-row sm:items-center sm:justify-between">
 					<div class="flex items-center gap-2 text-sm">
 						<?php if (isset($user)): ?>
 							<span class="font-display uppercase tracking-wide text-white/90">
-								Hello, <?php echo htmlspecialchars($user->username); ?>
+								Hello,
+								<?php echo htmlspecialchars($user->username); ?>
 							</span>
 						<?php endif; ?>
 						<?php if ($isAdmin): ?>
-							<span class="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-xs uppercase tracking-wider text-white">Admin</span>
+							<span
+								class="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-xs uppercase tracking-wider text-white">Admin</span>
 						<?php endif; ?>
 					</div>
 				</div>
+
 			<?php endif; ?>
 		</div>
 		<div class="mx-auto flex w-full flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 md:flex-nowrap">
@@ -81,17 +60,18 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block px-2 py-2 font-di
 			</a>
 			<nav
 				class="order-3 w-full min-w-0 basis-full overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:order-none"
-				aria-label="Primary"
-			>
+				aria-label="Primary">
 				<ul class="flex w-max flex-nowrap gap-0.5 md:w-auto">
 					<li>
-						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'index.php', true); ?>" href="index.php">Home</a>
+						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'index.php', true); ?>"
+							href="index.php">Home</a>
 					</li>
 					<li>
 						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'shop.php'); ?>" href="shop.php">Menu</a>
 					</li>
 					<li>
-						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'product.php'); ?>" href="product.php">Inventory</a>
+						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'product.php'); ?>"
+							href="product.php">Inventory</a>
 					</li>
 					<li>
 						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'users.php'); ?>" href="users.php">Users</a>
@@ -104,7 +84,8 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block px-2 py-2 font-di
 					href="shop.php">Menu</a>
 				<el-dropdown class="inline-flex">
 					<button class="relative inline-flex py-1.5" type="button" aria-label="Account menu">
-						<svg class="size-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+						<svg class="size-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+							stroke-linecap="round">
 							<path d="M4 6h16" />
 							<path d="M4 12h16" />
 							<path d="M4 18h16" />
@@ -118,11 +99,8 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block px-2 py-2 font-di
 							</svg>
 						<?php endif; ?>
 					</button>
-					<el-menu
-						anchor="bottom end"
-						popover
-						class="my-1 w-50 origin-top-right divide-y divide-white/10 rounded-md bg-white/4 shadow-sm outline-1 -outline-offset-1 outline-white/10"
-					>
+					<el-menu anchor="bottom end" popover
+						class="my-1 w-50 origin-top-right divide-y divide-white/10 rounded-md bg-white/4 shadow-sm outline-1 -outline-offset-1 outline-white/10">
 						<div class="py-1">
 							<?php if ($isLoggedIn && isset($user)): ?>
 								<div class="flex items-center gap-1 border-b px-4 py-2 text-sm text-dominos-blue">
