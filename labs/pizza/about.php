@@ -26,7 +26,7 @@
 				This is not a real restaurant and is not affiliated with Domino's or any other pizza
 				chain. The logo and brand name are student-made to avoid trademark use.
 			</p>
-			<a class="inline-block bg-accent-blue px-4 py-1.5 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
+			<a class="inline-block bg-dominos-blue px-4 py-1.5 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
 				href="shop.php">Browse Menu</a>
 		</div>
 		<figure class="rounded-md overflow-hidden">

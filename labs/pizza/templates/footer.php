@@ -1,4 +1,4 @@
-<footer class="mt-4 bg-dominos-blue py-8 text-sm text-white/90">
+<footer class="pt-4 bg-dominos-blue py-8 text-sm text-white/90">
 			<div class="mx-auto grid max-w-[980px] gap-8 px-4 md:grid-cols-3">
 				<div>
 					<p class="font-display text-lg uppercase tracking-wider text-white">Doomino's</p>
@@ -35,5 +35,4 @@
 			</div>
 		</footer>
 	</body>
-	<script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
 </html>
