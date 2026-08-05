@@ -187,7 +187,7 @@ class Auth
 	{
 		$database = new Database();
 		$conn = $database->getInstance();
-		$query = "SELECT * FROM pizza_users";
+		$query = "SELECT * FROM pizza_users order by id DESC";
 		$stmt = $conn->prepare($query);
 		if ($stmt->execute()) {
 			return $stmt->fetchAll();
