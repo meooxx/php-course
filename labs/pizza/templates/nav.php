@@ -7,38 +7,36 @@ $isLoggedIn = $auth->isLoggedIn();
 
 try {
 	$user = $auth->getUser();
-	error_log("User: " . print_r($user, true));
 	$isAdmin = $auth->isAdmin();
-
 } catch (Exception $e) {
-	// fixed a bug where if the user was deleted, 
-	// the nav bar would throw an error
-	// and it would redirect to status page forever. 
-	// Prevent infinite redirect loop
 	if (!str_contains($_SERVER['REQUEST_URI'], 'status.php')) {
-		header("Location: status.php?message=" . $e->getMessage());
+		header('Location: status.php?message=' . urlencode($e->getMessage()));
 		exit;
 	}
+	$isAdmin = false;
 }
 
 function getActiveClass($current, $path, bool $ishome = false): string
 {
-	$normal = 'text-white hover:bg-white/15';
-	$active = 'bg-white text-dominos-blue hover:bg-sky-50';
+	$normal = 'text-white/90 hover:bg-white/10';
+	$active = 'bg-dominos-red text-white hover:bg-dominos-red-deep';
 	if ($ishome && ($current === '/' || str_contains($current, 'index.php'))) {
+		return $active;
+	}
+	if ($path === 'shop.php' && str_contains($current, 'detail.php')) {
 		return $active;
 	}
 	return str_contains($current, $path) ? $active : $normal;
 }
 
-$navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text-sm uppercase tracking-widest no-underline px-2 py-2 text-xs';
+$navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block px-2 py-2 font-display text-xs uppercase tracking-widest no-underline sm:text-sm';
 ?>
 
 <body class="min-w-[320px] overflow-x-auto bg-cream font-body text-ink antialiased">
 	<header class="bg-dominos-blue text-white">
 		<div class="border-b border-white/20">
 			<?php if (!$isLoggedIn): ?>
-				<form method="POST" action="auth.php" class="w-full px-2 py-2 grid md:grid-cols-[8fr_2fr] grid-cols=1 gap-2 ">
+				<form method="POST" action="auth.php" class="grid w-full grid-cols-1 gap-2 px-2 py-2 md:grid-cols-[8fr_2fr]">
 					<input type="hidden" name="action" value="login" />
 					<div class="grid grid-cols-2 gap-2">
 						<div class="md:flex-1">
@@ -52,20 +50,17 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 								class="w-full rounded-sm border border-line bg-white px-3 py-2 text-sm text-ink outline-none focus:border-dominos-blue focus:ring-1 focus:ring-dominos-blue" />
 						</div>
 					</div>
-
-
 					<div class="flex gap-2 md:shrink-0">
 						<button type="submit"
-							class="w-full md:w-28 rounded-sm bg-white px-4 py-2 font-display text-xs uppercase tracking-wider text-dominos-blue hover:bg-sky-50">
+							class="w-full rounded-sm bg-white px-4 py-2 font-display text-xs uppercase tracking-wider text-dominos-blue hover:bg-panel md:w-28">
 							Login
 						</button>
-						<a class="w-full md:w-28 rounded-sm bg-white px-4 py-2 text-center font-display text-xs uppercase tracking-wider text-dominos-blue hover:bg-sky-50 no-underline"
+						<a class="w-full rounded-sm bg-white px-4 py-2 text-center font-display text-xs uppercase tracking-wider text-dominos-blue no-underline hover:bg-panel md:w-28"
 							href="auth.php?act=register">Register</a>
 					</div>
-
 				</form>
 			<?php else: ?>
-				<div class="pt-2 py-2 px-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+				<div class="flex flex-col gap-2 px-2 py-2 sm:flex-row sm:items-center sm:justify-between">
 					<div class="flex items-center gap-2 text-sm">
 						<?php if (isset($user)): ?>
 							<span class="font-display uppercase tracking-wide text-white/90">
@@ -73,44 +68,30 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 							</span>
 						<?php endif; ?>
 						<?php if ($isAdmin): ?>
-							<span
-								class="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-xs uppercase tracking-wider text-white">Admin</span>
+							<span class="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-xs uppercase tracking-wider text-white">Admin</span>
 						<?php endif; ?>
 					</div>
-
 				</div>
 			<?php endif; ?>
 		</div>
 		<div class="mx-auto flex w-full flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 md:flex-nowrap">
 			<a class="flex shrink-0 items-center gap-2 text-white no-underline hover:text-white" href="index.php">
 				<img class="h-9 w-9" src="images/logo.svg" width="36" height="36" alt="" />
-				<span class="hidden font-display text-xl uppercase tracking-wider min-[375px]:inline">Doomino's</span>
+				<span class="hidden font-display text-xl uppercase tracking-wider min-[375px]:inline">Inventory</span>
 			</a>
 			<nav
 				class="order-3 w-full min-w-0 basis-full overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:order-none"
-				aria-label="Primary">
+				aria-label="Primary"
+			>
 				<ul class="flex w-max flex-nowrap gap-0.5 md:w-auto">
 					<li>
-						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'index.php', true); ?>"
-							href="index.php">Home</a>
-					</li>
-					<li>
-						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'about.php'); ?>" href="about.php">About</a>
+						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'index.php', true); ?>" href="index.php">Home</a>
 					</li>
 					<li>
 						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'shop.php'); ?>" href="shop.php">Menu</a>
 					</li>
 					<li>
-						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'contact.php'); ?>"
-							href="contact.php">Contact</a>
-					</li>
-					<li>
-						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'orders.php'); ?>"
-							href="orders.php">Orders</a>
-					</li>
-					<li>
-						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'product.php'); ?>"
-							href="product.php">Inventory</a>
+						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'product.php'); ?>" href="product.php">Inventory</a>
 					</li>
 					<li>
 						<a class="<?php echo $navLink . ' ' . getActiveClass($current, 'users.php'); ?>" href="users.php">Users</a>
@@ -118,88 +99,46 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 				</ul>
 			</nav>
 
-			<div class="order-2 items-center ml-auto flex gap-2 md:order-none md:ml-auto">
-				<a class="shrink-0 rounded-full bg-white px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-blue no-underline hover:bg-sky-50 sm:px-4 sm:text-sm md:order-none md:ml-auto"
-					href="shop.php">Order</a>
-				<!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
-				<!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
+			<div class="order-2 ml-auto flex items-center gap-2 md:order-none">
+				<a class="shrink-0 rounded-sm bg-dominos-red px-3 py-1.5 font-display text-xs uppercase tracking-wider text-white no-underline hover:bg-dominos-red-deep sm:px-4 sm:text-sm"
+					href="shop.php">Menu</a>
 				<el-dropdown class="inline-flex">
-					<button class="inline-flex py-1.5 relative">
-						<svg class="size-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-							stroke-linecap="round">
-							<!-- Top Line -->
+					<button class="relative inline-flex py-1.5" type="button" aria-label="Account menu">
+						<svg class="size-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
 							<path d="M4 6h16" />
-							<!-- Middle Line -->
 							<path d="M4 12h16" />
-							<!-- Bottom Line -->
 							<path d="M4 18h16" />
 						</svg>
-						<!-- lock icon for logged-out users -->
 						<?php if (!$isLoggedIn): ?>
-							<svg class="absolute right-[-5px] top-[5px] text-dominos-blue-deep text-muted" xmlns="http://w3.org"
-								viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2"
-								stroke-linecap="round" stroke-linejoin="round">
+							<svg class="absolute right-[-5px] top-[5px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+								width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round" aria-hidden="true">
 								<path d="M7 11V7a5 5 0 0 1 10 0v4" />
 								<rect x="5" y="11" width="14" height="10" rx="2" />
 							</svg>
 						<?php endif; ?>
 					</button>
-
-					<el-menu anchor="bottom end" popover
-						class="divide-y divide-white/10 w-50 shadow-sm origin-top-right my-1 rounded-md bg-white/4 outline-1 -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
-						<div class="py-1 ">
+					<el-menu
+						anchor="bottom end"
+						popover
+						class="my-1 w-50 origin-top-right divide-y divide-white/10 rounded-md bg-white/4 shadow-sm outline-1 -outline-offset-1 outline-white/10"
+					>
+						<div class="py-1">
 							<?php if ($isLoggedIn && isset($user)): ?>
-								<div
-									class="border-b gap-1 items-center flex hover:cursor-default block hover:bg-white/5 px-4 py-2 text-sm text-dominos-blue  hover:outline-hidden">
-									<svg class="inline-flex" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-										viewBox="0 0 20 20">
-										<path d="M0 0h20v20H0z" fill="none" />
-										<path fill="currentColor"
-											d="M10 9.25c-2.27 0-2.73-3.44-2.73-3.44C7 4.02 7.82 2 9.97 2c2.16 0 2.98 2.02 2.71 3.81c0 0-.41 3.44-2.68 3.44m0 2.57L12.72 10c2.39 0 4.52 2.33 4.52 4.53v2.49s-3.65 1.13-7.24 1.13c-3.65 0-7.24-1.13-7.24-1.13v-2.49c0-2.25 1.94-4.48 4.47-4.48z" />
-									</svg>
-									<span>
-										<?php echo htmlspecialchars(isset($user) ? $user->username : ''); ?>
-									</span>
-									<!-- tool icon, indicating user is an admin -->
-									<?php if ($isAdmin): ?>
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="1em" height="1em">
-											<rect width="100" height="100" rx="16" ry="16" fill="rgb(0, 144, 226)" />
-
-											<g fill="#ffffff" transform="rotate(-45 50 50)">
-												<rect x="42" y="30" width="16" height="42" rx="4" ry="4" />
-												<path
-													d="M 50 18 C 39 18 35 28 35 34 C 35 44 43 48 50 48 C 57 48 65 44 65 34 C 65 28 61 18 50 18 Z" />
-												<path d="M 42 14 L 58 14 L 54 30 L 46 30 Z" fill="rgb(0, 144, 226)" />
-												<circle cx="50" cy="64" r="3.5" fill="rgb(0, 144, 226)" />
-											</g>
-										</svg>
-									<?php endif; ?>
+								<div class="flex items-center gap-1 border-b px-4 py-2 text-sm text-dominos-blue">
+									<span><?php echo htmlspecialchars($user->username); ?></span>
 								</div>
-
-								<a class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-red-600 hover:text-dominos-red hover:outline-hidden"
-									href="auth.php?act=logout">
-									logout
-								</a>
+								<a class="block px-4 py-2 text-sm text-red-600 no-underline hover:bg-white/5 hover:text-dominos-red"
+									href="auth.php?act=logout">Logout</a>
 							<?php else: ?>
-								<a class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-dominos-blue   hover:text-dominos-blue-deep hover:outline-hidden"
-									href="auth.php?act=login">
-									Login
-								</a>
-								<a class="hover:cursor-pointer block hover:bg-white/5 px-4 py-2 text-sm text-dominos-blue   hover:text-dominos-blue-deep hover:outline-hidden"
-									href="auth.php?act=register">
-									Register
-								</a>
+								<a class="block px-4 py-2 text-sm text-dominos-blue no-underline hover:bg-white/5"
+									href="auth.php?act=login">Login</a>
+								<a class="block px-4 py-2 text-sm text-dominos-blue no-underline hover:bg-white/5"
+									href="auth.php?act=register">Register</a>
 							<?php endif; ?>
 						</div>
 					</el-menu>
 				</el-dropdown>
-
-
-
-
-
 			</div>
-
-
 		</div>
 	</header>
