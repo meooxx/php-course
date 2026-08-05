@@ -3,7 +3,7 @@
 
 $productsList = [];
 $pageTitle = "Doomino's | Menu";
-$pageDescription = 'Browse our specialty pizzas and place your order online.';
+$pageDescription = 'Browse specialty pizzas from the inventory catalog.';
 try {
 	$productModel = new Product();
 	$productsList = $productModel->getProducts();
@@ -59,8 +59,8 @@ try {
 							<span class="font-display text-xl text-dominos-blue">
 								$<?php echo $price; ?>
 							</span>
-							<a class="bg-dominos-red px-3 py-1.5 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-red-700 inline-block rounded-sm"
-								href="detail.php?id=<?php echo $id; ?>">Order</a>
+							<a class="inline-block rounded-sm bg-dominos-red px-3 py-1.5 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-dominos-red-deep"
+								href="detail.php?id=<?php echo $id; ?>">View</a>
 						</div>
 					</div>
 				</article>
