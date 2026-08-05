@@ -37,34 +37,7 @@ $navLink = 'shrink-0 whitespace-nowrap rounded-sm inline-block font-display text
 <body class="min-w-[320px] overflow-x-auto bg-cream font-body text-ink antialiased">
 	<header class="bg-dominos-blue text-white">
 		<div class="border-b border-white/20">
-			<?php if (!$isLoggedIn): ?>
-				<form method="POST" action="auth.php" class="w-full px-2 py-2 grid md:grid-cols-[8fr_2fr] grid-cols=1 gap-2 ">
-					<input type="hidden" name="action" value="login" />
-					<div class="grid grid-cols-2 gap-2">
-						<div class="md:flex-1">
-							<label class="sr-only" for="header-username">Username</label>
-							<input id="header-username" name="username" type="text" required placeholder="Username"
-								class="w-full rounded-sm border border-line bg-white px-3 py-2 text-sm text-ink outline-none focus:border-dominos-blue focus:ring-1 focus:ring-dominos-blue" />
-						</div>
-						<div class="md:flex-1">
-							<label class="sr-only" for="header-password">Password</label>
-							<input id="header-password" name="password" type="password" required placeholder="Password"
-								class="w-full rounded-sm border border-line bg-white px-3 py-2 text-sm text-ink outline-none focus:border-dominos-blue focus:ring-1 focus:ring-dominos-blue" />
-						</div>
-					</div>
-
-
-					<div class="flex gap-2 md:shrink-0">
-						<button type="submit"
-							class="w-full md:w-28 rounded-sm bg-white px-4 py-2 font-display text-xs uppercase tracking-wider text-dominos-blue hover:bg-sky-50">
-							Login
-						</button>
-						<a class="w-full md:w-28 rounded-sm bg-white px-4 py-2 text-center font-display text-xs uppercase tracking-wider text-dominos-blue hover:bg-sky-50 no-underline"
-							href="auth.php?act=register">Register</a>
-					</div>
-
-				</form>
-			<?php else: ?>
+			<?php if ($isLoggedIn): ?>
 				<div class="pt-2 py-2 px-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 					<div class="flex items-center gap-2 text-sm">
 						<?php if (isset($user)): ?>
