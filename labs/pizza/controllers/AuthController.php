@@ -52,9 +52,9 @@ class AuthController
 		$pageStr = ucfirst($pageType);
 		$pageTitle = "Doomino's | $pageStr";
 		$pageDescription = $pageType === 'register'
-			? 'Create an account to place orders.'
+			? 'Create an account to manage your profile.'
 			: ($pageType === 'login'
-				? 'Access your account to place orders.'
+				? 'Sign in to access inventory and user tools.'
 				: 'Update your profile information.');
 
 		$viewerAuth = new Auth();

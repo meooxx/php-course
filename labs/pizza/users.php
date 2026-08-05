@@ -32,7 +32,7 @@ require_once 'templates/nav.php';
 			<p class="mt-1 text-muted">Staff and customer roster.</p>
 		</div>
 		<?php if ($showAdminFeatures): ?>
-			<a class="shrink-0 rounded-full bg-dominos-blue px-4 py-1.5 font-display text-sm tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
+			<a class="shrink-0 rounded-sm bg-dominos-blue px-4 py-1.5 font-display text-sm tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
 				href="auth.php?act=register">+ Add user</a>
 		<?php endif; ?>
 	</div>
@@ -68,7 +68,7 @@ require_once 'templates/nav.php';
 									</h3>
 									<?php if ($isSelf): ?>
 										<span
-											class="rounded-sm bg-sky-100 px-1.5 py-0.5 text-[10px] font-display uppercase tracking-wider text-dominos-blue-deep">You</span>
+											class="rounded-sm bg-panel px-1.5 py-0.5 text-[10px] font-display uppercase tracking-wider text-dominos-blue-deep">You</span>
 									<?php endif; ?>
 								</div>
 								<p class="truncate text-sm text-muted">
@@ -86,12 +86,12 @@ require_once 'templates/nav.php';
 							<?php if ($showAdminFeatures): ?>
 								<div class="flex items-center gap-2">
 									<a href="auth.php?act=update&id=<?php echo (int) $user->id; ?>"
-										class="rounded-sm border border-dominos-blue px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-blue no-underline hover:bg-sky-50">Edit</a>
+										class="rounded-sm border border-dominos-blue px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-blue no-underline hover:bg-panel">Edit</a>
 									<form method="POST" action="auth.php" class="inline">
 										<input type="hidden" name="action" value="delete" />
 										<input type="hidden" name="targetUserId" value="<?php echo (int) $user->id; ?>" />
 										<button type="submit"
-											class="rounded-sm border border-dominos-red px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-red hover:bg-red-50">Del</button>
+											class="rounded-sm border border-dominos-red px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-red hover:bg-dominos-red-soft">Del</button>
 									</form>
 								</div>
 							<?php endif; ?>

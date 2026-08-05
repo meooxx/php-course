@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-blue md:text-4xl">
 				Register
 			</h1>
-			<p class="mt-1 text-muted">Create an account to place orders.</p>
+			<p class="mt-1 text-muted">Create an account to manage your profile.</p>
 		</div>
 		<form method="POST" action="auth.php" class="max-w-sm space-y-4">
 			<input type="hidden" name="action" value="register" />
@@ -88,7 +88,7 @@ if (($pageType ?? '') === 'login') { ?>
 			<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-blue md:text-4xl">
 				Login
 			</h1>
-			<p class="mt-1 text-muted">Access your account to place orders.</p>
+			<p class="mt-1 text-muted">Sign in to access inventory and user tools.</p>
 		</div>
 		<form method="POST" action="auth.php" class="max-w-sm space-y-4">
 			<input type="hidden" name="action" value="login" />
