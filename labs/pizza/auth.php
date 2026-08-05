@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 <?php require_once 'templates/header.php'; ?>
 <?php require_once 'templates/nav.php'; ?>
-<?php if (($pageType ?? '') === 'register') { ?>
+<?php if (($pageType ?? '') === 'register' || ($pageType ?? '') === 'add_user') { ?>
 	<main id="main" class="mx-auto max-w-[980px] px-4 pb-10">
 		<div class="pb-4 pt-7">
 			<h1 class="font-display text-3xl uppercase tracking-wide text-dominos-blue md:text-4xl">
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			<p class="mt-1 text-muted">Create an account to manage your profile.</p>
 		</div>
 		<form method="POST" action="auth.php" class="max-w-sm space-y-4">
-			<input type="hidden" name="action" value="register" />
+			<input type="hidden" name="action" value="<?php echo $pageType; ?>" />
 			<div>
 				<label for="username"
 					class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue">Username</label>

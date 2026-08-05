@@ -33,7 +33,7 @@ require_once 'templates/nav.php';
 		</div>
 		<?php if ($showAdminFeatures): ?>
 			<a class="shrink-0 rounded-sm bg-dominos-blue px-4 py-1.5 font-display text-sm tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
-				href="auth.php?act=register">+ Add user</a>
+				href="auth.php?act=add_user">+ Add user</a>
 		<?php endif; ?>
 	</div>
 	<?php if ($totalUsers === 0) { ?>
