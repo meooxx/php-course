@@ -16,7 +16,7 @@ class Auth
 	}
 	public function getUserById($userId)
 	{
-		if(!isset($userId)) {
+		if (!isset($userId)) {
 			throw new Exception("User ID is required");
 		}
 
@@ -110,7 +110,7 @@ class Auth
 		Session::destroy();
 	}
 
-	public function register($username, $password, $confirmPassword, $email, $role): bool
+	public function register($username, $password, $confirmPassword, $email, $role): array
 	{
 		if (!isset($username) || !isset($password) || !isset($email)) {
 			throw new Exception("Username, password and email are required");
@@ -177,10 +177,10 @@ class Auth
 					$adminStmt->execute();
 				}
 			}
-			Session::set('user_id', $userId);
-			return true;
+
+			return ['success' => true, 'userId' => $userId];
 		}
-		return false;
+		return ['success' => false];
 	}
 
 	public function getUsers(): array

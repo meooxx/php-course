@@ -13,8 +13,8 @@ class AuthController
 	public function handlePost($post)
 	{
 		$action = $post['action'] ?? '';
-
-		if ($action == 'register') {
+		// if($action )
+		if ($action == 'register' || $action == 'add_user') {
 			$this->create($post);
 		}
 		if ($action == 'login') {
@@ -31,6 +31,7 @@ class AuthController
 	public function handleGet($get)
 	{
 		$pageType = isset($get['act']) ? strtolower($get['act']) : 'login';
+
 		$username = '';
 		$email = '';
 		$role = 'user';
@@ -81,12 +82,20 @@ class AuthController
 		$email = trim($post['email'] ?? '');
 		$role = trim($post['role'] ?? 'user');
 		$auth = new Auth();
+		$isRegister = ($post['action'] ?? '') === 'register' ? true : false;
 		try {
 			$result = $auth->register($username, $password, $confirmPassword, $email, $role);
-			if ($result !== false) {
-				header('Location: index.php');
+			$success = $result['success'] ?? false;
+			if ($success) {
+				if ($isRegister) {
+					Session::set('user_id', $result['userId'] ?? null);
+					header('Location: index.php');
+				} else {
+					header('Location: status.php?success=1&message=User created successfully.');
+				}
 				exit;
 			}
+
 		} catch (Exception $e) {
 			header('Location: status.php?success=0&message=' . urlencode($e->getMessage()));
 			exit;
