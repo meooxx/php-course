@@ -13,7 +13,7 @@ class Product
 
 	public function getProducts()
 	{
-		$query = "SELECT * FROM {$this->table}";
+		$query = "SELECT * FROM {$this->table} order by id DESC";
 		error_log("Query: " . $query); // Log the query for debugging
 		$stmt = $this->conn->prepare($query);
 		if ($stmt->execute()) {
