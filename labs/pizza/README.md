@@ -1,231 +1,75 @@
-# Doomino's Pizza Lab
+# Doomino's — Interface Design Using CSS (Selling Out!)
 
-Doomino's is a fictional pizza store built for the final project in *Intro to Web Programming Using PHP*. The site combines a public product catalog with an admin side for inventory and user management. The visual style is inspired by modern pizza ordering sites[dominos.ca](https://www.dominos.ca/en/), but the branding, structure, and code are original student work.
+Doomino's is a fictional pizza storefront built for the **Interface Design Using CSS** main project. 
+It is a public-facing product website: browse the menu, open product pages, and use the contact page. (separate from the PHP final-project build).
 
-## Project goal
+---
 
-The project is designed as an inventory management system with two main roles:
+## Product
 
-- Guests can browse products, open a single product page, place orders, and register a new account.
-- Admins can manage products and manage users after signing in.
+**Doomino's** sells specialty pizzas (academic demo only).  
+---
 
+## Color scheme
 
-## Main features
+**Complementary**
 
-### Public features
+| Role | Color |
+|------|--------|
+| Brand blue | `rgb(0, 144, 226)` |
+| Accent red | `rgb(227, 24, 55)` |
+| Page background (cream) | `#f7f4ef` |
 
-- Homepage
-- Register page
-- Product listing page
-- Single product and Order page
-- Header login form
-- Shared header and footer
+Defined in `css/tailwind-config.js` and used across pages with Tailwind utilities.
 
-### Admin features
+---
 
-- Add product
-- Edit product
-- Delete product
-- Update user
-- Delete user
-- Create another admin account through the registration flow when already signed in as an admin
+## Typography
 
-### Extra features
-For other assignments(php previous assignments and css couse project)
-- Order form on the single product page
-- Order placement with stock decrement
-- Orders page
-- About page
-- Contact page
-- Status/feedback page 
+| Role | Font |
+|------|------|
+| Display (headings, nav, labels) | Oswald |
+| Body | Nunito Sans |
 
-## Pages and files
+Letter-spacing is used on navigation, tags, and call-to-action text.
 
-### Public pages
+Shared chrome:
 
-- `index.php` - homepage
-- `shop.php` - all products / menu
-- `detail.php` - single product page
-- `auth.php?act=register` - register page
-- `auth.php?act=login` - login page
-- `about.php` - about page
-- `contact.php` - contact page
-- `status.php` - status/result page
+- `templates/header.php` — metadata, fonts, Tailwind CDN, CSS
+- `templates/nav.php` — logo, navigation, Order Online CTA
+- `templates/footer.php` — company / contact information
 
-### Admin pages
+---
 
-- `product.php` - inventory list
-- `product_edit.php` - add/edit product form
-- `users.php` - user management
-- `orders.php` - orders list
+## Technologies
 
-### Shared templates
-
-- `templates/header.php`
-- `templates/nav.php`
-- `templates/footer.php`
-
-### PHP classes
-
-- `models/Database.php` - database connection
-- `models/Auth.php` - auth, user CRUD, admin checks
-- `models/products.php` - product CRUD and validation
-- `models/Order.php` - order placement logic
-- `models/Session.php` - session helper
-
-### Controllers
-
-Page request logic is handled in controllers. Models still do the database work.
-
-- `controllers/AuthController.php` - register, login, logout, update/delete user
-- `controllers/ProductController.php` - add, edit, delete product
-- `controllers/OrderController.php` - place order
-
-### SQL files
-
-- `models/users.sql`
-- `models/product.sql`
-- `models/orders.sql`
-
-### Styling and assets
-
-- `css/styles.css`
-- `css/tailwind-config.js`
-- `images/`
-
-## Technologies used
-
-- PHP
 - HTML5
-- CSS
-- Tailwind CSS
-- MySQL
-- Sessions
+- CSS3 + Tailwind CSS (CDN)
+- PHP (page includes + product queries)
+- MySQL (PDO)
+- Google Fonts (Oswald, Nunito Sans)
 
-## Database design
+---
 
-The project currently uses these main tables:
+## Database setup
 
-### `pizza_users`
+Create a MySQL database on the target server.
 
-Stores all account records:
+Product pages(e.g.):
 
-- `id`
-- `username`
-- `password`
-- `email`
-- `created_at`
-- `role`
+- `detail.php?id=1`
+- `detail.php?id=2`
+- `detail.php?id=3`
 
-Passwords are stored using `password_hash()`.
+---
 
-### `pizza_admins`
-
-Stores admin membership:
-
-- `id`
-- `user_id`
-- `created_at`
-
-This table links admin access back to `pizza_users.id`. The application checks admin permission by seeing whether the logged-in user exists in `pizza_admins`.
-
-### `products`
-
-Stores inventory data:
-
-- `id`
-- `tag`
-- `name`
-- `description`
-- `price`
-- `pic`
-- `stock`
-
-### Orders
-
-The project also includes an orders table for php previous assigments.
-`id`,
-`name`,
-`email`,
-`phone`,
-`product_id(foreign key)`,
-`user_id (foreign key)`,
-`size`,
-`crust`,
-`quantity`,
-`fulfillment`,
-
-
-## Admin logic
-
-Regular users and admins both exist in `pizza_users`, but actual admin permission is controlled through `pizza_admins`. I initially used the role field to check if a user is an admin. However, to meet the assignment requirements, I added this table.
-
-Current behavior:
-
-- A guest can only register as a normal user.
-- A non-admin cannot assign the `admin` role from the form.
-- If someone manually submits `role=admin`, the backend checks whether the current user is already an admin.
-- When a user is promoted to admin, the app checks whether the user already exists in `pizza_admins`. If not, it inserts the user there.
-- When a user is changed back to a normal user, the matching record is deleted from `pizza_admins`.
-
-
-## Local setup
-
-### 1. Clone the repository
+### Local preview
 
 ```bash
-git clone git@github.com:meooxx/php-course.git
-cd php-course/labs/pizza
-```
-
-### 2. Create a database
-
-Create a MySQL database and update fields in `Datebase.php`
-
-### Run the site
-
-```bash
-# php environment required
+cd /path/to/this-folder
 php -S localhost:8080
 ```
 
-Then open:
-
-- [http://localhost:8080/](http://localhost:8080/)
-
-## Suggested test flow
-
-### Guest flow
-
-1. Open the homepage.
-2. Use the header navigation to open the menu.
+Visit http://localhost:8080/
 
 
-### Admin flow
-
-1. Sign in through the header login form.
-2. Open `product.php`.
-3. Add a product.
-4. Edit a product.
-5. Delete a product.
-6. Open `users.php`.
-7. Update a user.
-8. Delete a user.
-
-### Order flow
-
-1. Browse `shop.php`
-2. Open a product in `detail.php`.
-3. Submit the order form.
-
-## Known issues / development notes
-
-These are useful to mention:
-
-- One bug encountered during development was **global variable pollution**, especially those very common variables like `$user`, `productId`, `$userId`.
-- Another issue was **deleting the currently logged-in user**. If an admin deletes their own account, the session can become invalid. 
-- An error occurring inside status.php would trigger a redirection to itself, resulting in an infinite redirect loop
-
-## Disclaimer
-
-Doomino's is a fictional student project made for educational use only. It is not affiliated with Domino's Pizza. Some layout ideas and visual patterns were studied from commercial pizza sites, but the final code and project structure are student work.
