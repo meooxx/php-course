@@ -1,15 +1,8 @@
 <?php
 require_once 'models/products.php';
-require_once 'controllers/OrderController.php';
 
-$id = isset($_GET['id']) ? (int) $_GET['id'] : (isset($_POST['product_id']) ? (int) $_POST['product_id'] : 1);
+$id = isset($_GET['id']) ? (int) $_GET['id'] : 1;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$orderController = new OrderController();
-	$orderController->placeFromPost($_POST);
-}
-
-$product = null;
 try {
 	$productModel = new Product();
 	$product = $productModel->getDetail($id);
@@ -17,7 +10,6 @@ try {
 		throw new Exception('Product not found');
 	}
 } catch (Exception $e) {
-	error_log("Error fetching product detail: " . $e->getMessage());
 	header('Location: status.php?success=0&message=Product not found.');
 	exit;
 }
@@ -30,7 +22,7 @@ $tag = $product->tag ?? 'N/A';
 $stock = isset($product->stock) ? (int) $product->stock : 0;
 
 $pageTitle = "Doomino's | Product Detail";
-$pageDescription = "Details for {$name} pizza. Order online now!";
+$pageDescription = "Details for {$name} pizza.";
 require_once 'templates/header.php';
 require_once 'templates/nav.php';
 ?>
@@ -46,108 +38,22 @@ require_once 'templates/nav.php';
 		</h1>
 	</div>
 
-	<div class="mb-8 grid gap-6 md:grid-cols-2 items-start ">
-		<figure class="border border-line bg-white rounded-md overflow-hidden">
+	<div class="mb-8 grid items-start gap-6 md:grid-cols-2">
+		<figure class="overflow-hidden rounded-md border border-line bg-white">
 			<img class="aspect-square w-full object-cover" src="<?php echo htmlspecialchars($pic); ?>" width="800"
 				height="800" alt="<?php echo htmlspecialchars($name); ?>" />
 		</figure>
 
-		<div class="rounded-md overflow-hidden border border-line bg-white p-5" id="order">
+		<div class="rounded-md border border-line bg-white p-5">
 			<span
-				class="mb-2 inline-block bg-dominos-red px-2 py-0.5 font-display text-xs uppercase tracking-wider text-white rounded-sm overflow-hidden">
+				class="mb-2 inline-block overflow-hidden rounded-sm bg-dominos-red px-2 py-0.5 font-display text-xs uppercase tracking-wider text-white">
 				<?php echo htmlspecialchars($tag); ?>
 			</span>
 			<p class="font-display text-2xl text-dominos-blue">$<?php echo htmlspecialchars((string) $price); ?></p>
 			<p class="mb-2 text-sm text-muted">In stock: <?php echo $stock; ?></p>
 			<p class="mb-5 text-muted"><?php echo htmlspecialchars($des); ?></p>
-
-			<form action="detail.php?id=<?php echo $id; ?>" method="post">
-				<input type="hidden" name="product_id" value="<?php echo (int) $id; ?>" />
-
-				<div class="mb-3">
-					<label class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue" for="customer_name">
-						Name
-					</label>
-					<input class="rounded-sm w-full border border-line bg-cream px-3 py-2" id="customer_name" name="name"
-						type="text" required />
-				</div>
-
-				<div class="mb-3">
-					<label class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue" for="email">
-						Email
-					</label>
-					<input class="w-full rounded-sm border border-line bg-cream px-3 py-2" id="email" name="email" type="email"
-						required />
-				</div>
-
-				<div class="mb-3">
-					<label class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue" for="phone">
-						Phone
-					</label>
-					<input class="w-full rounded-sm border border-line bg-cream px-3 py-2" id="phone" name="phone" type="tel"
-						required />
-				</div>
-
-				<div class="mb-3">
-					<label class="mb-1 block font-display text-sm uppercase tracking-wider text-dominos-blue" for="quantity">
-						Qty
-					</label>
-					<input class="w-full rounded-sm border border-line bg-cream px-3 py-2" id="quantity" name="quantity"
-						type="number" min="1" max="99" value="1" required />
-				</div>
-
-				<fieldset class="mb-3 border-0 p-0">
-					<legend class="mb-2 font-display text-sm uppercase tracking-wider text-dominos-blue">Size</legend>
-					<div class="flex flex-wrap gap-2">
-						<label
-							class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
-							<input type="radio" name="size" value="small" /> <span>Small</span>
-						</label>
-						<label
-							class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
-							<input type="radio" name="size" value="medium" checked /> <span>Medium</span>
-						</label>
-						<label
-							class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
-							<input type="radio" name="size" value="large" /> <span>Large</span>
-						</label>
-					</div>
-				</fieldset>
-
-				<fieldset class="mb-3 border-0 p-0">
-					<legend class="mb-2 font-display text-sm uppercase tracking-wider text-dominos-blue">Crust</legend>
-					<div class="flex flex-wrap gap-2">
-						<label
-							class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
-							<input type="radio" name="crust" value="hand_tossed" checked /> <span>Hand Tossed</span>
-						</label>
-						<label
-							class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
-							<input type="radio" name="crust" value="handmade_pan" /> <span>Handmade Pan</span>
-						</label>
-					</div>
-				</fieldset>
-
-				<fieldset class="mb-4 border-0 p-0">
-					<legend class="mb-2 font-display text-sm uppercase tracking-wider text-dominos-blue">Method</legend>
-					<div class="flex flex-wrap gap-2">
-						<label
-							class="option-chip rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
-							<input type="radio" name="fulfillment" value="carryout" checked /> <span>Carryout</span>
-						</label>
-						<label
-							class="option-chip rounded-sm rounded-sm cursor-pointer border-2 border-line bg-cream px-3 py-1.5 text-sm font-bold">
-							<input type="radio" name="fulfillment" value="delivery" /> <span>Delivery</span>
-						</label>
-					</div>
-				</fieldset>
-
-				<button
-					class="rounded-sm w-full bg-dominos-red px-4 py-2 font-display text-sm uppercase tracking-wider text-white hover:bg-red-700"
-					type="submit">
-					Place Order
-				</button>
-			</form>
+			<a class="inline-block rounded-sm bg-dominos-red px-4 py-2 font-display text-sm uppercase tracking-wider text-white no-underline hover:bg-dominos-red-deep"
+				href="shop.php">Back to menu</a>
 		</div>
 	</div>
 </main>

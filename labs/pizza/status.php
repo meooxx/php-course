@@ -26,10 +26,10 @@ require_once 'templates/nav.php';
 				<?php echo ($msg ? htmlspecialchars($msg) : 'Something went wrong. Please try again.'); ?>
 			</p>
 		<?php } ?>
-		<a class="mt-6 inline-block rounded-full bg-dominos-blue px-5 py-2 font-display text-sm uppercase tracking-wider text-white no-underline "
+		<a class="mt-6 inline-block rounded-sm bg-dominos-blue px-5 py-2 font-display text-sm uppercase tracking-wider text-white no-underline "
 			href="javascript:history.back()">Go back</a>
 
-		<a class="mt-6 inline-block rounded-full  bg-dominos-red px-5 py-2 font-display text-sm uppercase tracking-wider text-white no-underline"
+		<a class="mt-6 inline-block rounded-sm bg-dominos-red px-5 py-2 font-display text-sm uppercase tracking-wider text-white no-underline"
 			href="index.php">Back to Home</a>
 	</div>
 </main>

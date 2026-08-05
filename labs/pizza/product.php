@@ -36,7 +36,7 @@ require_once 'templates/nav.php';
 			<p class="mt-1 text-muted">Stock board for menu items.</p>
 		</div>
 		<?php if ($showAdminFeatures): ?>
-			<a class="shrink-0 rounded-full bg-dominos-blue px-4 py-1.5 font-display text-sm tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
+			<a class="shrink-0 rounded-sm bg-dominos-blue px-4 py-1.5 font-display text-sm tracking-wider text-white no-underline hover:bg-dominos-blue-deep"
 				href="product_edit.php">+ Add item</a>
 		<?php endif; ?>
 	</div>
@@ -104,12 +104,12 @@ require_once 'templates/nav.php';
 								<?php if ($showAdminFeatures): ?>
 									<div class="flex items-center gap-2">
 										<a href="product_edit.php?id=<?php echo (int) $product->id; ?>"
-											class="rounded-sm border border-dominos-blue px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-blue no-underline hover:bg-sky-50">Edit</a>
+											class="rounded-sm border border-dominos-blue px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-blue no-underline hover:bg-panel">Edit</a>
 										<form method="POST" action="product_edit.php" class="inline">
 											<input type="hidden" name="deleteId" value="<?php echo (int) $product->id; ?>" />
 											<input type="hidden" name="action" value="delete" />
 											<button type="submit"
-												class="rounded-sm border border-dominos-red px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-red hover:bg-red-50">Del</button>
+												class="rounded-sm border border-dominos-red px-3 py-1.5 font-display text-xs uppercase tracking-wider text-dominos-red hover:bg-dominos-red-soft">Del</button>
 										</form>
 									</div>
 								<?php endif; ?>
