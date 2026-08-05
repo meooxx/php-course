@@ -15,3 +15,14 @@ create table if not exists pizza_admins (
 		FOREIGN KEY (user_id) REFERENCES pizza_users(id)
 		ON DELETE CASCADE
 );
+
+-- amdin seed sql
+-- initially insert an admin user admin/1234
+insert into pizza_users(username, password, email, role) values(
+	'admin', 
+  '$2y$12$sGRs00v.4aT/wTVVAaMeU.oM95IFYq3EPRT1q83GTLIKW6qdOGtBi',
+	'admin@example.com',
+	'admin');
+SET @id := LAST_INSERT_ID();
+INSERT INTO pizza_admins (user_id) 
+VALUES (@id);
